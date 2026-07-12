@@ -124,7 +124,7 @@ clear error state on failure. Client-side validation before submitting.
 
 Unchecked radio buttons use `--muted` (#C7BEAD); checked ones follow the reference design.
 
-### Interactive heart (reference: `files/heart_game.png`)
+### Interactive heart (reference: `files/slide8/heart_game.png`)
 - Numbered dots on screen. The user connects them **strictly in order**: 1→2→3→…→N→1,
   closing the loop back to dot 1.
 - Tapping the correct next dot draws a line from the previous one. Tapping any other dot does
