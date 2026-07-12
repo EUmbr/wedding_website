@@ -1,3 +1,9 @@
-*.png
-*.ttf
-*.mp3
+node_modules/
+dist/
+.claude/
+
+# Raw design materials stay out of the repo (large binaries).
+# Site assets (src/assets/, public/) MUST be committed — Cloudflare Pages builds from git.
+materials/**/*.png
+materials/**/*.ttf
+materials/**/*.mp3

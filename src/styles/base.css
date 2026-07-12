@@ -1,0 +1,148 @@
+/* ---------------------------------------------------------------------------
+   Fonts: Helvetica CY — the single typeface used across the whole site.
+--------------------------------------------------------------------------- */
+@font-face {
+  font-family: 'Helvetica CY';
+  src: url('../assets/fonts/helveticacy.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Helvetica CY';
+  src: url('../assets/fonts/helveticacy_bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Helvetica CY';
+  src: url('../assets/fonts/helveticacy_italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ---------------------------------------------------------------------------
+   Design tokens
+--------------------------------------------------------------------------- */
+:root {
+  --beige: #f1e5cf;
+  --orange: #f55b29;
+  --black: #000000;
+  --muted: #c7bead; /* unchecked radio buttons in the RSVP form */
+
+  /* The references are 1500px-wide phone screenshots = 375 CSS px at 4x.
+     All reference measurements divide by 4 to get CSS px. */
+  --col-width: 375px;
+
+  --font-stack: 'Helvetica CY', Helvetica, Arial, sans-serif;
+}
+
+/* ---------------------------------------------------------------------------
+   Reset / base
+--------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  font-family: var(--font-stack);
+  background: var(--black);
+  color: var(--beige);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* ---------------------------------------------------------------------------
+   Layout: every section paints its own full-width background; the content
+   lives in a centered column matching the reference width.
+--------------------------------------------------------------------------- */
+.section {
+  width: 100%;
+}
+
+.col {
+  max-width: var(--col-width);
+  margin-inline: auto;
+  position: relative;
+}
+
+/* Section backgrounds (section 3 gets a photo background when built) */
+.section--title    { background: var(--black); }
+.section--contents { background: var(--orange); }
+.section--timing   { background: var(--black); }
+.section--location { background: var(--black); }
+.section--details  { background: var(--beige); color: var(--black); }
+.section--dresscode{ background: var(--black); }
+.section--brief    { background: var(--orange); color: var(--black); }
+.section--closing  { background: var(--black); }
+
+/* Temporary skeleton styling — removed as real sections are built */
+.placeholder {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  text-align: center;
+  padding: 16px;
+}
+
+/* ---------------------------------------------------------------------------
+   Scroll-reveal: elements with [data-reveal] fade in and drift up once,
+   on first appearance. reveal.js adds .is-revealed.
+--------------------------------------------------------------------------- */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+}
+
+[data-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
