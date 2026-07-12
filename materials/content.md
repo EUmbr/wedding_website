@@ -49,6 +49,9 @@ Heading: `тайминг`
 | 20:45 | `букет и бутоньерка` |
 | 23:00 | `завершение` |
 
+> **Note (owner ruling, 2026-07-13):** the reference `slide3.png` shows `22:00 завершение` —
+> that is outdated. `23:00` above is correct.
+
 ---
 
 ## Section 4 — Location — `references/slide4.png`
@@ -113,7 +116,10 @@ Heading: `dress-code`
 ## Section 7 — Guest brief (RSVP) — `references/slide7.png`
 
 Heading: `бриф гостя`
-Subheading: `Будем ждать ваш ответ до 16.07.2026`
+Subheading: `Будем ждать ваш ответ до 18.07.2026`
+
+> **Note (owner ruling, 2026-07-13):** the deadline was moved from `16.07.2026` (still shown
+> in the reference `slide7.png`) to `18.07.2026`.
 
 ### Google Form
 
@@ -123,8 +129,13 @@ Form URL: `https://forms.gle/5BB2Cg6aJTLYvFVr8`
 |---|---|---|
 | `фио` | `entry.1199485873` | text |
 | `присутствие` | `entry.100062412` | radio |
-| `предпочтения по напиткам` | `entry.1865058381` | radio |
+| `предпочтения по напиткам` | `entry.1865058381` | checkbox (multi-select) |
 | `предпочтения по горячему блюду` | `entry.1134375954` | radio |
+
+> **Note (owner ruling, 2026-07-13):** the drinks field is a Google Forms **checkbox**
+> question — guests may pick several drinks. The site must allow multiple selection and
+> submit one `entry.1865058381` value per checked option. The other two choice fields are
+> single-select radio.
 
 Submitted values must match the option labels below **exactly**, lowercase.
 
@@ -136,9 +147,10 @@ Submitted values must match the option labels below **exactly**, lowercase.
 - `нет`
 - `да`
 
-**`предпочтения по напиткам`**
+**`предпочтения по напиткам`** — multiple selection allowed
 - `пиво`
-- `шампанское`
+- `шампанское` *(owner confirmed: the reference `slide7.png` shows a typo `шампанскиое`; the
+  correct value — displayed and submitted — is `шампанское`)*
 - `белое вино`
 - `красное вино`
 - `безалкогольные напитки`
