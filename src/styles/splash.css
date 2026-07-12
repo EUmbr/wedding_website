@@ -1,0 +1,94 @@
+/* ---------------------------------------------------------------------------
+   Splash screen — reference: materials/references/opening_slide.png
+   All sizes are reference px / 4.
+--------------------------------------------------------------------------- */
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: var(--black);
+  color: var(--beige);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* the content block sits slightly above the vertical center in the reference */
+  padding-bottom: 12vh;
+  text-align: center;
+  cursor: pointer;
+  transition: opacity 0.8s ease;
+}
+
+.splash.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.splash__hint {
+  font-size: 16px;
+  line-height: 1.25;
+}
+
+.splash__card {
+  margin-top: 13px;
+  width: 267px;
+  max-width: calc(100vw - 48px);
+  background: var(--beige);
+  border-radius: 12px;
+  padding: 13px 13px 15px;
+}
+
+.splash__photo {
+  position: relative;
+}
+
+.splash__photo > img:first-child {
+  width: 100%;
+  border-radius: 7px;
+}
+
+/* Orange connect-the-dots heart overlaying the photo */
+.splash__pattern {
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  transform: translate(-50%, -50%);
+  width: 79%;
+}
+
+.splash__label {
+  margin-top: 19px;
+  font-size: 34px;
+  line-height: 1.15;
+}
+
+/* Locks page scroll while the splash is up */
+.no-scroll {
+  overflow: hidden;
+}
+
+/* ---------------------------------------------------------------------------
+   Fixed mute button — position matches the icon in slide1.png (top-right)
+--------------------------------------------------------------------------- */
+.mute-btn {
+  position: fixed;
+  top: 13px;
+  right: 20px;
+  z-index: 50;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border-radius: 50%;
+}
+
+.mute-btn img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .splash {
+    transition: none;
+  }
+}

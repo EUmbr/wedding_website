@@ -8,7 +8,40 @@
     <title>сима и женя — 08.08.2026</title>
   </head>
   <body>
-    <!-- Splash screen (built in the next step) will overlay everything here -->
+    <!-- Splash screen: styled as an mp3 file in a player. Any tap starts the
+         music and fades into the main page. -->
+    <div
+      class="splash"
+      id="splash"
+      role="button"
+      tabindex="0"
+      aria-label="нажмите на mp3, чтобы открыть приглашение"
+    >
+      <p class="splash__hint">нажмите на mp3, чтобы<br />открыть приглашение</p>
+      <div class="splash__card">
+        <div class="splash__photo">
+          <img src="/src/assets/images/couple_kiss.webp" alt="Сима и Женя" />
+          <img
+            class="splash__pattern"
+            src="/src/assets/images/orange_heart_pattern.webp"
+            alt=""
+          />
+        </div>
+      </div>
+      <p class="splash__label">2026_свадьба<br />симы и жени.mp3</p>
+    </div>
+
+    <!-- Fixed mute/unmute button, appears once the invitation is opened -->
+    <button
+      class="mute-btn"
+      id="mute-btn"
+      type="button"
+      aria-pressed="false"
+      aria-label="выключить музыку"
+      hidden
+    >
+      <img src="/src/assets/images/music_on_icon.webp" alt="" />
+    </button>
 
     <main id="page">
       <!-- Section 1: title -->
