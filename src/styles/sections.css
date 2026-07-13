@@ -429,6 +429,139 @@
   justify-content: center;
 }
 
+/* ---------------------------------------------------------------------------
+   Section 5: details — reference: slide5.png
+   Free-form collage: section heading, three blocks (gifts / flowers /
+   contacts), each with a photo, a numbered label, a black dot and text.
+--------------------------------------------------------------------------- */
+.s5 {
+  height: 812px;
+  color: var(--black);
+}
+
+.s5 > * {
+  position: absolute;
+}
+
+.s5__heading {
+  font-weight: 700;
+  line-height: 0.95;
+  white-space: nowrap;
+}
+
+.s5__heading-1,
+.s5__heading-2 {
+  position: absolute;
+  font-size: 30px;
+}
+
+.s5__heading-1 {
+  left: 179px;
+  top: 65px;
+}
+
+.s5__heading-2 {
+  left: 205px;
+  top: 83px;
+}
+
+.s5__heading-dot {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--black);
+  left: 283px;
+  top: 62px;
+}
+
+.s5__photo {
+  z-index: 1;
+}
+
+.s5__mail {
+  left: 45px;
+  top: 116px;
+  width: 137px;
+}
+
+.s5__flower {
+  left: 96px;
+  top: 421px;
+  width: 104px;
+}
+
+.s5__phone {
+  left: 172px;
+  top: 585px;
+  width: 188px;
+}
+
+.s5__num {
+  font-size: 26px;
+  font-weight: 700;
+  z-index: 2;
+}
+
+.s5__num--1 { left: 145px; top: 113px; }
+.s5__num--2 { left: 70px;  top: 458px; }
+.s5__num--3 { left: 143px; top: 640px; }
+
+.s5__dot {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--black);
+  z-index: 2;
+}
+
+.s5__dot--1 { left: 146px; top: 136px; }
+.s5__dot--2 { left: 42px;  top: 438px; }
+.s5__dot--3 { left: 171px; top: 626px; }
+
+.s5__sub {
+  font-size: 28px;
+  font-weight: 700;
+  z-index: 3;
+}
+
+.s5__sub--gifts    { left: 140px; top: 168px; }
+.s5__sub--flowers  { left: 40px;  top: 519px; }
+.s5__sub--contacts { left: 98px;  top: 675px; }
+
+.s5__body {
+  font-size: 21px;
+  line-height: 20px;
+  text-align: center;
+  z-index: 2;
+}
+
+.s5__body b {
+  font-weight: 700;
+}
+
+.s5__body--gifts {
+  left: 110px;
+  top: 184px;
+  width: 246px;
+}
+
+.s5__body--flowers {
+  left: 20px;
+  top: 522px;
+  width: 264px;
+}
+
+.s5__body--contacts {
+  left: 108px;
+  top: 696px;
+  width: 250px;
+}
+
+.s5__contact {
+  color: inherit;
+}
+
 /* Scroll-down circle: sits on photo 4, straddles the boundary into section 2 */
 .s1__scroll {
   width: 106px;
