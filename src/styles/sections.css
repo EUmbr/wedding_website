@@ -988,11 +988,15 @@
   position: absolute;
 }
 
-/* scalloped orange edge exported from slide8.png (see extract-scallops.mjs) */
+/* Scalloped orange edge exported from slide8.png (see extract-scallops.mjs).
+   The asset is 7 mirrored tiles wide (2625px) so the edge continues across
+   wide desktop viewports; the column shows the centered original tile. */
 .s8__scallops {
-  left: 0;
+  left: 50%;
   top: 0;
-  width: 375px;
+  transform: translateX(-50%);
+  width: 2625px;
+  max-width: none;
   height: 282px;
 }
 
@@ -1062,9 +1066,12 @@
   fill: var(--beige);
 }
 
+/* touch-action only on the dots: a drag starting on a dot draws the line
+   (no page pan), while touching empty space still scrolls the page */
 .heart-hit {
   fill: transparent;
   cursor: pointer;
+  touch-action: none;
 }
 
 .heart-num {
@@ -1074,10 +1081,22 @@
   user-select: none;
 }
 
-.heart-line {
+.heart-line,
+.heart-rubber {
   stroke: var(--orange);
   stroke-width: 3;
   stroke-linecap: round;
+}
+
+/* transparent win video over the whole page (added/removed by heart.js) */
+.heart-win-video {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  z-index: 200;
 }
 
 /* hint: the next expected dot gently pulses */

@@ -21,6 +21,14 @@ export function startMusic() {
   audio.play().catch(() => {});
 }
 
+// Temporarily lower the background music (e.g. while the heart win video
+// plays its own sound), then restore it.
+export function setMusicDucked(ducked) {
+  if (audio) {
+    audio.volume = ducked ? 0.1 : 1;
+  }
+}
+
 export function initMuteButton() {
   const button = document.getElementById('mute-btn');
   const icon = button.querySelector('img');

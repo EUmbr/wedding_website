@@ -1,6 +1,10 @@
 // Connect-the-dots heart (reference: materials/files/slide8/heart_game.png).
-// Dots must be tapped strictly in order 1→2→…→16→1; the closing tap fills
-// the heart. Touch-first: pointerdown handles both touch and mouse.
+// Dots are connected strictly in order 1→2→…→16→1, either by tapping each
+// dot or by dragging: a rubber-band line follows the finger/cursor from the
+// last connected dot and snaps when it reaches the next one. Closing the
+// loop fills the heart and plays the win video effect.
+
+import { setMusicDucked } from './audio.js';
 
 // Dots in the 375x410 viewBox, in play order (1 = center notch,
 // counterclockwise, 9 = bottom tip). Each entry is
@@ -15,12 +19,49 @@ const DOTS = [
   [221, 85, 244, 116],
 ];
 
+const SNAP_RADIUS = 22; // how close the drag must come to catch the next dot
+
 const SVG_NS = 'http://www.w3.org/2000/svg';
 const el = (tag, attrs) => {
   const node = document.createElementNS(SVG_NS, tag);
   for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, v);
   return node;
 };
+
+// --- win effect: transparent webm overlay + separate opus sound ------------
+
+let winVideo = null;
+
+function prepareWinEffect() {
+  if (winVideo) return;
+  const video = document.createElement('video');
+  // iOS Safari cannot play webm with alpha — skip the effect there entirely
+  if (!video.canPlayType('video/webm')) return;
+  video.src = '/effects/heart_win.webm';
+  video.preload = 'auto';
+  video.muted = true; // the sound track ships separately as .opus
+  video.playsInline = true;
+  video.className = 'heart-win-video';
+  winVideo = video;
+}
+
+function playWinEffect() {
+  if (!winVideo) return;
+  const sound = new Audio('/effects/heart_win.opus');
+  document.body.append(winVideo);
+  setMusicDucked(true);
+
+  const cleanup = () => {
+    winVideo.remove();
+    setMusicDucked(false);
+  };
+  winVideo.addEventListener('ended', cleanup);
+  winVideo.addEventListener('error', cleanup);
+  winVideo.play().catch(cleanup);
+  sound.play().catch(() => {});
+}
+
+// ---------------------------------------------------------------------------
 
 export function initHeart() {
   const svg = document.getElementById('heart');
@@ -34,9 +75,33 @@ export function initHeart() {
   svg.append(fill);
 
   const lines = el('g', { class: 'heart-lines' });
-  svg.append(lines);
+  const rubber = el('line', { class: 'heart-rubber', visibility: 'hidden' });
+  svg.append(lines, rubber);
 
   let next = 0; // index into DOTS of the next expected dot
+  let done = false;
+
+  const advance = () => {
+    const [x, y] = DOTS[next % 16];
+    if (next > 0) {
+      const [px, py] = DOTS[next - 1];
+      lines.append(el('line', { x1: px, y1: py, x2: x, y2: y, class: 'heart-line' }));
+    }
+    dotEls[next % 16].classList.remove('is-next');
+    prepareWinEffect(); // start loading the video on the first tap
+    next += 1;
+    if (next === 16) {
+      dotEls[0].classList.add('is-next'); // loop back to dot 1
+    } else if (next === 17) {
+      done = true;
+      rubber.setAttribute('visibility', 'hidden');
+      svg.classList.add('is-done');
+      dotEls[0].classList.remove('is-next');
+      playWinEffect();
+    } else {
+      dotEls[next].classList.add('is-next');
+    }
+  };
 
   const dotEls = DOTS.map(([x, y, numX, numY], i) => {
     const g = el('g', { class: 'heart-dot' });
@@ -53,25 +118,66 @@ export function initHeart() {
       label,
     );
     g.addEventListener('pointerdown', () => {
-      if (i !== next % 16) return; // wrong dot — ignore
-      if (next > 0) {
-        const [px, py] = DOTS[next - 1];
-        lines.append(el('line', { x1: px, y1: py, x2: x, y2: y, class: 'heart-line' }));
-      }
-      dotEls[i].classList.remove('is-next');
-      next += 1;
-      if (next === 16) {
-        dotEls[0].classList.add('is-next'); // loop back to dot 1
-      } else if (next === 17) {
-        svg.classList.add('is-done'); // fill + celebration
-        dotEls[0].classList.remove('is-next');
-      } else {
-        dotEls[next].classList.add('is-next');
-      }
+      if (done || i !== next % 16) return; // wrong dot — ignore
+      advance();
     });
     svg.append(g);
     return g;
   });
 
   dotEls[0].classList.add('is-next'); // hint: start at 1
+
+  // --- drawing without lifting the finger/cursor ---------------------------
+  // While the pointer is down, a rubber-band line follows it from the last
+  // connected dot; passing within SNAP_RADIUS of the next dot connects it.
+  // (clientX/Y are mapped through the rendered box, so this stays correct
+  // under the page zoom scaling.)
+  const toSvgPoint = (event) => {
+    const box = svg.getBoundingClientRect();
+    return [
+      ((event.clientX - box.left) / box.width) * 375,
+      ((event.clientY - box.top) / box.height) * 410,
+    ];
+  };
+
+  let drawing = false;
+
+  const updateRubber = (event) => {
+    if (done || next === 0) return;
+    const [px, py] = DOTS[next - 1];
+    let [x, y] = toSvgPoint(event);
+
+    // connect every dot the drag passes through (loop: a single move event
+    // can land close enough to catch a dot)
+    while (!done) {
+      const [tx, ty] = DOTS[next % 16];
+      if (Math.hypot(x - tx, y - ty) > SNAP_RADIUS) break;
+      advance();
+    }
+    if (done) return;
+    const [lx, ly] = DOTS[next - 1];
+    rubber.setAttribute('x1', lx);
+    rubber.setAttribute('y1', ly);
+    rubber.setAttribute('x2', x);
+    rubber.setAttribute('y2', y);
+    rubber.setAttribute('visibility', 'visible');
+  };
+
+  svg.addEventListener('pointerdown', (event) => {
+    if (done || next === 0) return;
+    drawing = true;
+    svg.setPointerCapture(event.pointerId);
+    updateRubber(event);
+  });
+
+  svg.addEventListener('pointermove', (event) => {
+    if (drawing) updateRubber(event);
+  });
+
+  const stopDrawing = () => {
+    drawing = false;
+    rubber.setAttribute('visibility', 'hidden');
+  };
+  svg.addEventListener('pointerup', stopDrawing);
+  svg.addEventListener('pointercancel', stopDrawing);
 }

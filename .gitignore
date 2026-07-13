@@ -10,3 +10,5 @@ shots/
 materials/**/*.png
 materials/**/*.ttf
 materials/**/*.mp3
+materials/**/*.webm
+materials/**/*.opus
