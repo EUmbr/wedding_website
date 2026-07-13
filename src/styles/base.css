@@ -84,8 +84,12 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* height:auto keeps the intrinsic ratio when CSS sets only a width —
+   otherwise the width/height ATTRIBUTES (added for layout stability)
+   would stretch the image */
 img {
   max-width: 100%;
+  height: auto;
   display: block;
 }
 
