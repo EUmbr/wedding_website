@@ -480,36 +480,39 @@
 }
 
 .s5__mail {
-  left: 45px;
-  top: 116px;
-  width: 137px;
+  left: 46px;
+  top: 115px;
+  width: 97px;
 }
 
 .s5__flower {
   left: 96px;
   top: 421px;
-  width: 104px;
+  width: 102px;
 }
 
+/* the phone asset has large transparent margins: content 513x361 inside a
+   650x678 canvas — the render box is sized so the CONTENT matches the
+   reference (135 CSS px wide at (180, 593)) */
 .s5__phone {
-  left: 172px;
-  top: 585px;
-  width: 188px;
+  left: 163px;
+  top: 551px;
+  width: 171px;
 }
 
 .s5__num {
-  font-size: 26px;
+  font-size: 22px;
   font-weight: 700;
   z-index: 2;
 }
 
-.s5__num--1 { left: 145px; top: 113px; }
-.s5__num--2 { left: 70px;  top: 458px; }
-.s5__num--3 { left: 143px; top: 640px; }
+.s5__num--1 { left: 145px; top: 109px; }
+.s5__num--2 { left: 69px;  top: 455px; }
+.s5__num--3 { left: 147px; top: 640px; }
 
 .s5__dot {
-  width: 50px;
-  height: 50px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
   background: var(--black);
   z-index: 2;
@@ -520,18 +523,18 @@
 .s5__dot--3 { left: 171px; top: 626px; }
 
 .s5__sub {
-  font-size: 28px;
+  font-size: 22px;
   font-weight: 700;
   z-index: 3;
 }
 
-.s5__sub--gifts    { left: 140px; top: 168px; }
-.s5__sub--flowers  { left: 40px;  top: 519px; }
-.s5__sub--contacts { left: 98px;  top: 675px; }
+.s5__sub--gifts    { left: 140px; top: 164px; }
+.s5__sub--flowers  { left: 38px;  top: 503px; }
+.s5__sub--contacts { left: 96px;  top: 669px; }
 
 .s5__body {
-  font-size: 21px;
-  line-height: 20px;
+  font-size: 22px;
+  line-height: 22px;
   text-align: center;
   z-index: 2;
 }
@@ -542,20 +545,20 @@
 
 .s5__body--gifts {
   left: 110px;
-  top: 184px;
+  top: 176px;
   width: 246px;
 }
 
 .s5__body--flowers {
-  left: 20px;
-  top: 522px;
-  width: 264px;
+  left: 15px;
+  top: 523px;
+  width: 272px;
 }
 
 .s5__body--contacts {
-  left: 108px;
-  top: 696px;
-  width: 250px;
+  left: 95px;
+  top: 683px;
+  width: 260px;
 }
 
 .s5__contact {
