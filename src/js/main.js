@@ -9,6 +9,16 @@ import { initRsvp } from './rsvp.js';
 import { initCountdown } from './countdown.js';
 import { initHeart } from './heart.js';
 
+// Scale the fixed 375px design column to the viewport, like scaling a whole
+// Figma group: every element keeps its exact relative position. Phones get
+// an edge-to-edge layout; larger screens are capped at a moderate 1.25x.
+const page = document.getElementById('page');
+const applyZoom = () => {
+  page.style.zoom = String(Math.min(window.innerWidth / 375, 1.25));
+};
+applyZoom();
+window.addEventListener('resize', applyZoom);
+
 const muteButton = initMuteButton();
 initNav();
 initRsvp();

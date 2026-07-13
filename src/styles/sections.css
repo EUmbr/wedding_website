@@ -351,11 +351,15 @@
   overflow: hidden;
 }
 
+/* painted over the map iframe (the design's circles clip the map corners);
+   pointer-events off so the map stays interactive */
 .s4__blobs {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
+  z-index: 2;
+  pointer-events: none;
 }
 
 .s4__heading {
@@ -418,7 +422,8 @@
   top: 745px;
   width: 153px;
   height: 33px;
-  border-radius: 17px;
+  border-radius: 8px;
+  z-index: 3;
   background: var(--orange);
   color: var(--beige);
   font-size: 22px;
@@ -764,6 +769,15 @@
   position: static;
 }
 
+/* all form texts paint above the option circles */
+.s7__label,
+.s7__group-label,
+.s7__group-line,
+.s7__opt-text,
+.s7__yn-text {
+  z-index: 2;
+}
+
 .s7__label,
 .s7__group-label {
   font-size: 22px;
@@ -930,7 +944,7 @@
   top: 1085px;
   height: 40px;
   padding-inline: 30px;
-  border-radius: 20px;
+  border-radius: 8px;
   background: var(--beige);
   color: var(--black);
   font-size: 22px;
@@ -1011,7 +1025,8 @@
 .s8__unit--days    { left: 60px; }
 .s8__unit--hours   { left: 133px; }
 .s8__unit--minutes { left: 206px; }
-.s8__unit--seconds { left: 279px; }
+/* +10px vs the reference so a pluralized "минута" never touches "секунд" */
+.s8__unit--seconds { left: 289px; }
 
 .s8__unit b {
   display: block;
@@ -1060,7 +1075,7 @@
 }
 
 .heart-line {
-  stroke: var(--beige);
+  stroke: var(--orange);
   stroke-width: 3;
   stroke-linecap: round;
 }
@@ -1077,31 +1092,18 @@
   50% { transform: scale(1.7); }
 }
 
-/* completed: the fill fades in and the whole heart beats once */
+/* completed: plain orange fill, no extra animation (owner's call) */
 .heart-fill {
   fill: var(--orange);
   opacity: 0;
-  transition: opacity 0.9s ease;
 }
 
 .s8__heart.is-done .heart-fill {
   opacity: 1;
 }
 
-.s8__heart.is-done {
-  animation: heart-beat 0.9s ease 0.9s;
-  transform-origin: center;
-}
-
-@keyframes heart-beat {
-  0%, 100% { transform: scale(1); }
-  30% { transform: scale(1.08); }
-  60% { transform: scale(0.98); }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .heart-dot.is-next .heart-point,
-  .s8__heart.is-done {
+  .heart-dot.is-next .heart-point {
     animation: none;
   }
 }
