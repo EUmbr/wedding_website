@@ -990,8 +990,21 @@
 
 /* Scalloped orange edge exported from slide8.png (see extract-scallops.mjs).
    The asset is 7 mirrored tiles wide (2625px) so the edge continues across
-   wide desktop viewports; the column shows the centered original tile. */
+   wide desktop viewports. It MUST be clipped to the visual viewport: an
+   unclipped overflow this wide blows up the mobile layout viewport (the page
+   zooms out and Android font boosting wrecks the typography). The clip
+   wrapper spans exactly the viewport (100vw compensated for the page zoom). */
 .s8__scallops {
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  width: calc(100vw / var(--page-zoom, 1));
+  height: 282px;
+  overflow: hidden;
+}
+
+.s8__scallops-img {
+  position: absolute;
   left: 50%;
   top: 0;
   transform: translateX(-50%);

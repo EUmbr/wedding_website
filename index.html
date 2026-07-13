@@ -6,6 +6,44 @@
     <meta name="description" content="приглашение на свадьбу симы и жени — 08.08.2026" />
     <meta name="theme-color" content="#000000" />
     <title>сима и женя — 08.08.2026</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- Messenger link previews. TODO: replace og:image with the absolute
+         URL (https://<domain>/og.jpg) once the custom domain is attached —
+         most messengers ignore relative image paths. -->
+    <meta property="og:title" content="сима и женя — 08.08.2026" />
+    <meta property="og:description" content="приглашение на свадьбу симы и жени" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/og.jpg" />
+    <link
+      rel="preload"
+      href="/src/assets/images/couple_kiss.webp"
+      as="image"
+      type="image/webp"
+      fetchpriority="high"
+    />
+    <link
+      rel="preload"
+      href="/src/assets/fonts/helveticacy.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/src/assets/fonts/helveticacy_bold.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    />
+    <!-- The 375px design column scales to the viewport (capped at 1.25x on
+         desktop). Set before first paint to avoid a layout shift; main.js
+         keeps it updated on resize. -->
+    <script>
+      document.documentElement.style.setProperty(
+        '--page-zoom',
+        String(Math.min(window.innerWidth / 375, 1.25)),
+      );
+    </script>
   </head>
   <body>
     <!-- Splash screen: styled as an mp3 file in a player. Any tap starts the
@@ -20,11 +58,19 @@
       <p class="splash__hint">нажмите на mp3, чтобы<br />открыть приглашение</p>
       <div class="splash__card">
         <div class="splash__photo">
-          <img src="/src/assets/images/couple_kiss.webp" alt="Сима и Женя" />
+          <img
+            src="/src/assets/images/couple_kiss.webp"
+            alt="Сима и Женя"
+            width="600"
+            height="598"
+            fetchpriority="high"
+          />
           <img
             class="splash__pattern"
             src="/src/assets/images/orange_heart_pattern.webp"
             alt=""
+            width="500"
+            height="544"
           />
         </div>
       </div>
@@ -196,10 +242,13 @@
             она находится по адресу: <b>г. Москва,</b><br /><b>ул. Ивана Франко, вл 2</b>
           </p>
           <!-- Rebuilt map-widget URL: coordinates + marker + zoom only, so the
-               business info card never opens (see materials/content.md) -->
+               business info card never opens (see materials/content.md).
+               src is set by splash.js AFTER the invitation is opened, so the
+               heavy third-party map never delays the first load. -->
           <iframe
             class="s4__map"
-            src="https://yandex.ru/map-widget/v1/?ll=37.457747,55.729070&z=16&pt=37.457747,55.729070,pm2rdm"
+            id="map"
+            data-src="https://yandex.ru/map-widget/v1/?ll=37.457747,55.729070&z=16&pt=37.457747,55.729070,pm2rdm"
             title="карта: Культ.Гараж, ул. Ивана Франко, вл 2"
             loading="lazy"
             allowfullscreen
@@ -388,7 +437,9 @@
       <!-- Section 8: closing — reference: slide8.png (MVP layout for now) -->
       <section class="section section--closing" id="closing">
         <div class="col s8">
-          <img class="s8__scallops" src="/src/assets/images/closing_scallops.webp" alt="" loading="lazy" />
+          <div class="s8__scallops" aria-hidden="true">
+            <img class="s8__scallops-img" src="/src/assets/images/closing_scallops.webp" alt="" loading="lazy" />
+          </div>
           <p class="s8__love" data-reveal>с любовью, Сима и Женя!</p>
           <div class="s8__timer" id="timer" data-reveal>
             <div class="s8__unit s8__unit--days"><b data-unit="days">00</b><span data-label="days">дней</span></div>
