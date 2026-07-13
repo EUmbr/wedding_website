@@ -12,4 +12,12 @@ export function initNav() {
       target.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth' });
     });
   });
+
+  // back-to-top: appears only past the first screen
+  const toTop = document.getElementById('to-top');
+  const toggle = () => {
+    toTop.hidden = window.scrollY <= window.innerHeight;
+  };
+  window.addEventListener('scroll', toggle, { passive: true });
+  toggle();
 }

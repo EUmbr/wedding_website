@@ -6,16 +6,17 @@ import sharp from 'sharp';
 
 const [, , refPath, shotPath, outPath] = process.argv;
 
-const ref = sharp(refPath).resize({ width: 750 });
-const { height: refH } = await ref.metadata().then(async () => {
-  const buf = await sharp(refPath).resize({ width: 750 }).toBuffer();
-  return sharp(buf).metadata();
-});
+const refBuf = await sharp(refPath).resize({ width: 750 }).toBuffer();
+const shotBuf = await sharp(shotPath).resize({ width: 750 }).toBuffer();
 
-const shot = await sharp(shotPath).resize({ width: 750 }).ensureAlpha(0.5).toBuffer();
+const refH = (await sharp(refBuf).metadata()).height;
+const shotH = (await sharp(shotBuf).metadata()).height;
+const h = Math.min(refH, shotH);
 
-await sharp(await sharp(refPath).resize({ width: 750 }).toBuffer())
-  .composite([{ input: shot, top: 0, left: 0 }])
+const crop = (buf) => sharp(buf).extract({ left: 0, top: 0, width: 750, height: h });
+
+await crop(refBuf)
+  .composite([{ input: await crop(shotBuf).ensureAlpha(0.5).toBuffer(), top: 0, left: 0 }])
   .toFile(outPath);
 
-console.log(`saved ${outPath} (reference height at 750w: ${refH}px)`);
+console.log(`saved ${outPath} (compared height: ${h}px at 750w)`);

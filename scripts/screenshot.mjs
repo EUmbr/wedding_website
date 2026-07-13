@@ -3,6 +3,7 @@
 //   mode: "splash"   — capture the splash screen (viewport only)
 //         "full"     — dismiss splash, capture the whole page (default)
 //         "viewport" — dismiss splash, capture one viewport
+//         "y=<px>"   — dismiss splash, scroll to page y, capture one viewport
 // Optionally set URL via SITE_URL env var (default http://localhost:5173).
 
 import { chromium } from 'playwright-core';
@@ -22,6 +23,13 @@ if (mode !== 'splash') {
   await page.click('#splash', { timeout: 3000 }).catch(() => {});
   // wait out the splash fade + reveal animations
   await page.waitForTimeout(1600);
+}
+
+if (mode.startsWith('y=')) {
+  const y = Number(mode.slice(2));
+  await page.evaluate((top) => window.scrollTo({ top, behavior: 'instant' }), y);
+  // let reveal animations in this screen finish
+  await page.waitForTimeout(2200);
 }
 
 await page.screenshot({ path: out, fullPage: mode === 'full' });

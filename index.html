@@ -43,6 +43,18 @@
       <img src="/src/assets/images/music_on_icon.webp" alt="" />
     </button>
 
+    <!-- Floating back-to-top button, appears after the first screen -->
+    <button
+      class="to-top"
+      id="to-top"
+      type="button"
+      aria-label="наверх, к содержанию"
+      data-scroll-to="#contents"
+      hidden
+    >
+      <span aria-hidden="true">v</span>
+    </button>
+
     <main id="page">
       <!-- Section 1: title — reference: slide1.png -->
       <section class="section section--title" id="title">
@@ -98,10 +110,34 @@
         </div>
       </section>
 
-      <!-- Section 2: table of contents -->
+      <!-- Section 2: table of contents — reference: slide2.png -->
       <section class="section section--contents" id="contents">
-        <div class="col">
-          <p class="placeholder">содержание</p>
+        <div class="col s2">
+          <h2 class="s2__heading">
+            <span class="s2__heading-part s2__heading-part--1" data-reveal>содерж</span>
+            <span class="s2__heading-part s2__heading-part--2" data-reveal>ание</span>
+            <span class="s2__heading-dot" data-reveal></span>
+          </h2>
+          <a class="s2__item s2__item--1" href="#timing" data-scroll-to="#timing" data-reveal>
+            <img src="/src/assets/images/folder_icon1.webp" alt="" />
+            <span class="s2__label">тайминг</span>
+          </a>
+          <a class="s2__item s2__item--2" href="#location" data-scroll-to="#location" data-reveal>
+            <img src="/src/assets/images/folder_icon2.webp" alt="" />
+            <span class="s2__label">локация</span>
+          </a>
+          <a class="s2__item s2__item--3" href="#details" data-scroll-to="#details" data-reveal>
+            <img src="/src/assets/images/folder_icon3.webp" alt="" />
+            <span class="s2__label">детали</span>
+          </a>
+          <a class="s2__item s2__item--4" href="#dresscode" data-scroll-to="#dresscode" data-reveal>
+            <img src="/src/assets/images/folder_icon4.webp" alt="" />
+            <span class="s2__label">dress-code</span>
+          </a>
+          <a class="s2__item s2__item--5" href="#brief" data-scroll-to="#brief" data-reveal>
+            <img src="/src/assets/images/folder_icon5.webp" alt="" />
+            <span class="s2__label">бриф<br />гостя</span>
+          </a>
         </div>
       </section>
 

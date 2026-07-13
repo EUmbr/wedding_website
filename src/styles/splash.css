@@ -88,8 +88,43 @@
   display: block;
 }
 
+/* ---------------------------------------------------------------------------
+   Floating back-to-top button (not in the references — minimal, in the
+   site's visual language: beige dot, bold black chevron)
+--------------------------------------------------------------------------- */
+.to-top {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 40;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--beige);
+  color: var(--black);
+  font-size: 20px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 35%);
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.to-top[hidden] {
+  display: flex; /* keep layout for the fade */
+  opacity: 0;
+  pointer-events: none;
+}
+
+.to-top span {
+  transform: rotate(180deg); /* the site's "v" pointing up */
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .splash {
+  .splash,
+  .to-top {
     transition: none;
   }
 }

@@ -78,10 +78,14 @@
   width: 59px;
 }
 
+/* the reference renders this photo slightly wider-cropped than the asset,
+   so both dimensions are pinned and the overflow is cropped */
 .s1__photo--4 {
   left: 122px;
   top: 638px;
-  width: 124px;
+  width: 121px;
+  height: 96px;
+  object-fit: cover;
 }
 
 .s1__names {
@@ -145,6 +149,82 @@
   top: 593px;
 }
 
+/* ---------------------------------------------------------------------------
+   Section 2: table of contents — reference: slide2.png
+--------------------------------------------------------------------------- */
+.s2 {
+  height: 809px;
+  color: var(--black);
+}
+
+.s2 > * {
+  position: absolute;
+}
+
+.s2__heading {
+  position: static;
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.s2__heading-part {
+  position: absolute;
+}
+
+.s2__heading-part--1 {
+  left: 27px;
+  top: 30px;
+}
+
+.s2__heading-part--2 {
+  left: 90px;
+  top: 45px;
+}
+
+.s2__heading-dot {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--black);
+  left: 154px;
+  top: 55px;
+}
+
+.s2__item {
+  display: block;
+  text-decoration: none;
+  width: 116px;
+}
+
+.s2__item img {
+  width: 116px;
+  filter: drop-shadow(0 2px 3px rgb(0 0 0 / 30%));
+}
+
+.s2__label {
+  position: absolute;
+  font-size: 22px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.s2__item--1 { left: 49px;  top: 166px; }
+.s2__item--1 .s2__label { left: 14px; top: 90px; }
+
+.s2__item--2 { left: 178px; top: 266px; }
+.s2__item--2 .s2__label { left: 28px; top: 84px; }
+
+.s2__item--3 { left: 53px;  top: 342px; }
+.s2__item--3 .s2__label { left: -1px; top: 94px; }
+
+.s2__item--4 { left: 232px; top: 477px; }
+.s2__item--4 .s2__label { left: -1px; top: 89px; }
+
+.s2__item--5 { left: 208px; top: 601px; }
+.s2__item--5 .s2__label { left: 41px; top: 96px; line-height: 1.1; }
+
 /* Scroll-down circle: sits on photo 4, straddles the boundary into section 2 */
 .s1__scroll {
   width: 106px;
@@ -153,7 +233,7 @@
   background: var(--beige);
   color: var(--black);
   left: 132px;
-  top: 740px;
+  top: 734px;
   z-index: 5;
   font-size: 44px;
   font-weight: 700;
