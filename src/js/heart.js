@@ -2,12 +2,17 @@
 // Dots must be tapped strictly in order 1→2→…→16→1; the closing tap fills
 // the heart. Touch-first: pointerdown handles both touch and mouse.
 
-// Dot coordinates in the 375x380 viewBox, in play order (1 = center notch,
-// counterclockwise, 9 = bottom tip). Measured from slide8.png.
+// Dots in the 375x410 viewBox, in play order (1 = center notch,
+// counterclockwise, 9 = bottom tip). Each entry is
+// [dot x, dot y, number x (center), number y (baseline)] — dot centers and
+// number positions are both measured from slide8.png.
 const DOTS = [
-  [202, 108], [176, 62], [148, 29], [94, 7], [37, 40], [44, 113], [61, 157],
-  [130, 240], [197, 339], [246, 285], [286, 203], [324, 144], [325, 89],
-  [303, 30], [253, 27], [220, 62],
+  [203.5, 130, 197, 168], [177.5, 85, 158.5, 116], [149.5, 50.5, 136.5, 84],
+  [95, 26, 95, 65], [38, 62, 54.5, 81], [44.5, 135.5, 66.5, 138],
+  [61.5, 181, 80.5, 185], [130.5, 264.5, 152, 273], [198.5, 356, 218, 397],
+  [246.5, 311.5, 224, 291], [287, 231.5, 255.5, 223], [326, 169, 293, 175],
+  [326, 111, 293, 115], [304.5, 50.5, 310, 28], [252.5, 50.5, 253, 40],
+  [221, 85, 244, 116],
 ];
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
@@ -23,7 +28,7 @@ export function initHeart() {
 
   // fill polygon (hidden until the loop closes)
   const fill = el('polygon', {
-    points: DOTS.map((p) => p.join(',')).join(' '),
+    points: DOTS.map(([x, y]) => `${x},${y}`).join(' '),
     class: 'heart-fill',
   });
   svg.append(fill);
@@ -31,18 +36,13 @@ export function initHeart() {
   const lines = el('g', { class: 'heart-lines' });
   svg.append(lines);
 
-  // centroid, to push number labels outward from the outline
-  const cx = DOTS.reduce((s, p) => s + p[0], 0) / DOTS.length;
-  const cy = DOTS.reduce((s, p) => s + p[1], 0) / DOTS.length;
-
   let next = 0; // index into DOTS of the next expected dot
 
-  const dotEls = DOTS.map(([x, y], i) => {
+  const dotEls = DOTS.map(([x, y, numX, numY], i) => {
     const g = el('g', { class: 'heart-dot' });
-    const d = Math.hypot(x - cx, y - cy) || 1;
     const label = el('text', {
-      x: x + ((x - cx) / d) * 18,
-      y: y + ((y - cy) / d) * 18 + 6,
+      x: numX,
+      y: numY,
       class: 'heart-num',
       'text-anchor': 'middle',
     });
