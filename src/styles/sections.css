@@ -225,6 +225,124 @@
 .s2__item--5 { left: 208px; top: 601px; }
 .s2__item--5 .s2__label { left: 41px; top: 96px; line-height: 1.1; }
 
+/* ---------------------------------------------------------------------------
+   Section 3: timeline — reference: slide3.png
+   Full-bleed rotated photo, a lattice of orange circles, and the timing card.
+--------------------------------------------------------------------------- */
+.s3 {
+  height: 812px;
+  overflow: hidden;
+  color: var(--black);
+}
+
+.s3__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: left top;
+}
+
+.s3__circles i {
+  position: absolute;
+  width: 116px;
+  height: 116px;
+  border-radius: 50%;
+  background: var(--orange);
+  z-index: 2;
+}
+
+.s3__card {
+  position: absolute;
+  left: 46px;
+  top: 161px;
+  width: 312px;
+  height: 400px;
+  background: var(--beige);
+  border-radius: 10px;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.s3__card-header {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 38px;
+  background: #d5ccb9;
+}
+
+.s3__hole {
+  position: absolute;
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  background: var(--beige);
+  right: 12px;
+  top: 10px;
+}
+
+.s3__heading {
+  position: absolute;
+  left: 10px;
+  top: 17px;
+  font-size: 33px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.s3__heading-dot {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--black);
+  right: -9px;
+  top: 4px;
+}
+
+/* Timing rows: bold time + regular event sharing one baseline; the wrapped
+   second lines are separate rows. Positions are reference-exact. */
+.s3__row {
+  position: absolute;
+  font-size: 22px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.s3__row b {
+  font-weight: 700;
+}
+
+.s3__row span {
+  position: absolute;
+  white-space: nowrap;
+}
+
+/* positions are relative to the card (card left 46, top 161) */
+.s3__row--1  { left: 14px;  top: 73px; }
+.s3__row--1 span { left: 60px; top: 0; }
+
+.s3__row--2  { left: 16px;  top: 119px; }
+.s3__row--2 span { left: 60px; top: 0; }
+
+.s3__row--3  { left: 84px;  top: 152px; }
+.s3__row--3 span { left: 60px; top: 0; }
+
+.s3__row--4  { left: 124px; top: 179px; }
+.s3__row--4 span { left: 56px; top: 0; }
+
+.s3__row--4b { left: 180px; top: 198px; }
+
+.s3__row--5  { left: 48px;  top: 269px; }
+.s3__row--5 span { left: 58px; top: 0; }
+
+.s3__row--5b { left: 106px; top: 288px; }
+
+.s3__row--6  { left: 16px;  top: 339px; }
+.s3__row--6 span { left: 60px; top: 0; }
+
 /* Scroll-down circle: sits on photo 4, straddles the boundary into section 2 */
 .s1__scroll {
   width: 106px;

@@ -30,8 +30,9 @@ const images = [
   ['slide2/folder_icon4.png', 'folder_icon4.webp', 580, 90],
   ['slide2/folder_icon5.png', 'folder_icon5.webp', 580, 90],
 
-  // Section 3 — timeline background photo
-  ['slide3/couple_image.png', 'timing_photo.webp', 750, 80],
+  // Section 3 — timeline background photo (object-fit: cover at 812px tall
+  // needs ~500 CSS px width → 1000px at 2x)
+  ['slide3/couple_image.png', 'timing_photo.webp', 1000, 80],
 
   // Section 5 — details
   ['slide5/mail.png', 'mail.webp', 600, 85],
