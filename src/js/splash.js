@@ -14,6 +14,12 @@ export function initSplash(onOpen) {
     if (opened) return;
     opened = true;
 
+    // the heavy third-party map loads only once the invitation is opened
+    const map = document.getElementById('map');
+    if (map && !map.src) {
+      map.src = map.dataset.src;
+    }
+
     onOpen();
     document.body.classList.remove('no-scroll');
 

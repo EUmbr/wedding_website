@@ -54,6 +54,16 @@ In the Pages project: **Custom domains → Set up a custom domain**, enter the d
 follow the DNS instructions (if the domain is already on Cloudflare, it's one click; if not,
 add the CNAME record it shows at your registrar).
 
+## Pre-launch checklist
+
+- [ ] Replace the organizer contact link in `index.html` (search for
+  `TODO: replace placeholder organizer contact link`).
+- [ ] After attaching the custom domain, set the absolute `og:image` URL in
+  `index.html` (search for `TODO: replace og:image`).
+- [ ] Delete the test rows from the Google Form responses (rows named
+  «тест сайта — эту строку можно удалить»).
+  Note: `scripts/test-rsvp.mjs` submits one such real test row per run.
+
 ## Windows caveats
 
 - Use a regular terminal (PowerShell or cmd) — no WSL needed; everything here is

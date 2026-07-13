@@ -13,9 +13,10 @@ const OUT_DIR = 'src/assets/images';
 
 // [source (relative to materials/files), output name, target width px, quality]
 const images = [
-  // Splash screen
-  ['opening_slide/couple_kiss.png', 'couple_kiss.webp', 700, 82],
-  ['opening_slide/orange_heart_pattern.png', 'orange_heart_pattern.webp', 700, 90],
+  // Splash screen (card photo displays at ~241 CSS px; 600px covers 2.5x DPR
+  // and keeps the LCP image light)
+  ['opening_slide/couple_kiss.png', 'couple_kiss.webp', 600, 80],
+  ['opening_slide/orange_heart_pattern.png', 'orange_heart_pattern.webp', 500, 88],
 
   // Section 1 — title
   ['slide1/couple_image1.png', 'couple_image1.webp', 500, 82],

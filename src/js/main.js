@@ -12,12 +12,14 @@ import { initHeart } from './heart.js';
 // Scale the fixed 375px design column to the viewport, like scaling a whole
 // Figma group: every element keeps its exact relative position. Phones get
 // an edge-to-edge layout; larger screens are capped at a moderate 1.25x.
-const page = document.getElementById('page');
-const applyZoom = () => {
-  page.style.zoom = String(Math.min(window.innerWidth / 375, 1.25));
-};
-applyZoom();
-window.addEventListener('resize', applyZoom);
+// The initial value is set by an inline script in <head> (avoids a layout
+// shift); this only keeps it updated on resize/rotation.
+window.addEventListener('resize', () => {
+  document.documentElement.style.setProperty(
+    '--page-zoom',
+    String(Math.min(window.innerWidth / 375, 1.25)),
+  );
+});
 
 const muteButton = initMuteButton();
 initNav();
