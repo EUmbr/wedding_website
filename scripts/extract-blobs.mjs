@@ -81,12 +81,13 @@ for (let p = 0; p < N; p++) {
 
 // --- complete the circles the reference cuts at the screen edges ----------
 // The asset is exported wider than the column (PAD on each side) so desktop
-// margins show whole circles instead of vertical cuts. For every vertical
-// run of orange along a side edge, fit a circle from the chord (run length c)
-// and the inward depth at the run's middle row (w): r = c²/8w + w/2. Runs
-// merged too deep into the pattern fall back to a semicircle on the edge.
+// margins show whole circles instead of vertical cuts. Every circle in the
+// design has the SAME radius R (matches the section-3 grid), so each vertical
+// run of orange along a side edge is completed with uniform-R circles whose
+// centers sit outside the edge: chord c ⇒ center distance d = √(R²−(c/2)²).
+// Runs longer than one circle's chord get several evenly spread circles.
 const PAD = 240; // ref px = 60 CSS px each side
-const MAX_DEPTH = 350;
+const R = 232; // uniform circle radius, ref px (58 CSS px)
 
 const edgeCirclesFor = (edgeX, dir) => {
   const circles = [];
@@ -97,12 +98,15 @@ const edgeCirclesFor = (edgeX, dir) => {
     if (!on && runStart !== -1) {
       const c = y - runStart;
       if (c > 40) {
-        const midY = Math.round(runStart + c / 2);
-        let w = 0;
-        while (w < MAX_DEPTH && keepPixel(midY * width + edgeX + dir * w)) w++;
-        const r = w >= MAX_DEPTH ? c / 2 : (c * c) / (8 * w) + w / 2;
-        const d = Math.max(0, r - Math.min(w, MAX_DEPTH));
-        circles.push({ cx: edgeX + dir * -d, cy: runStart + c / 2, r });
+        const k = Math.max(1, Math.round(c / (1.8 * R)));
+        const cs = c / k;
+        // -20px inward bias: the completion arc overlaps the base pattern a
+        // little, hiding seam steps where the true center wasn't exactly
+        // outside the edge
+        const d = Math.max(0, Math.sqrt(Math.max(0, R * R - (cs / 2) * (cs / 2))) - 20);
+        for (let i = 0; i < k; i++) {
+          circles.push({ cx: edgeX - dir * d, cy: runStart + cs * (i + 0.5), r: R });
+        }
       }
       runStart = -1;
     }
