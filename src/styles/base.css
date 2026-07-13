@@ -1,4 +1,4 @@
-/* ---------------------------------------------------------------------------
+﻿/* ---------------------------------------------------------------------------
    Fonts: Helvetica CY — the single typeface used across the whole site.
 --------------------------------------------------------------------------- */
 @font-face {
@@ -6,7 +6,7 @@
   src: url('../assets/fonts/helveticacy.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -14,7 +14,7 @@
   src: url('../assets/fonts/helveticacy_bold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -22,7 +22,7 @@
   src: url('../assets/fonts/helveticacy_italic.ttf') format('truetype');
   font-weight: 400;
   font-style: italic;
-  font-display: swap;
+  font-display: block;
 }
 
 /* ---------------------------------------------------------------------------
@@ -68,6 +68,13 @@ html,
 body {
   overflow-x: hidden;
   overflow-x: clip;
+}
+
+/* The design relies on exact glyph geometry: text must never be inflated
+   by mobile "font boosting" / text auto-sizing. */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
