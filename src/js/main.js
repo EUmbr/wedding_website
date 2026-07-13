@@ -6,10 +6,14 @@ import { startMusic, initMuteButton } from './audio.js';
 import { initSplash } from './splash.js';
 import { initNav } from './nav.js';
 import { initRsvp } from './rsvp.js';
+import { initCountdown } from './countdown.js';
+import { initHeart } from './heart.js';
 
 const muteButton = initMuteButton();
 initNav();
 initRsvp();
+initCountdown();
+initHeart();
 
 const hasSplash = initSplash(() => {
   startMusic();

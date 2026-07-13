@@ -962,6 +962,136 @@
   line-height: 22px;
 }
 
+/* ---------------------------------------------------------------------------
+   Section 8: closing — reference: slide8.png (MVP; pixel pass comes later).
+   Scalloped orange edge, farewell line, countdown, connect-the-dots heart.
+--------------------------------------------------------------------------- */
+.s8 {
+  height: 780px;
+}
+
+.s8 > * {
+  position: absolute;
+}
+
+/* orange scallop bumps hanging from section 7's orange into the black */
+.s8__scallops i {
+  position: absolute;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: var(--orange);
+  transform: translateY(-50%);
+}
+
+.s8__love {
+  left: 0;
+  top: 246px;
+  width: 375px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--beige);
+  line-height: 1;
+}
+
+.s8__timer {
+  left: 0;
+  top: 282px;
+  width: 375px;
+  display: flex;
+  justify-content: center;
+  gap: 22px;
+  color: var(--orange);
+  text-align: center;
+}
+
+.s8__unit b {
+  display: block;
+  font-size: 44px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.s8__unit span {
+  display: block;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+  margin-top: -4px;
+}
+
+/* heart game */
+.s8__heart {
+  left: 0;
+  top: 370px;
+  width: 375px;
+  height: 380px;
+}
+
+.heart-point {
+  fill: var(--beige);
+}
+
+.heart-hit {
+  fill: transparent;
+  cursor: pointer;
+}
+
+.heart-num {
+  fill: var(--beige);
+  font-size: 26px;
+  font-weight: 700;
+  user-select: none;
+}
+
+.heart-line {
+  stroke: var(--beige);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+/* hint: the next expected dot gently pulses */
+.heart-dot.is-next .heart-point {
+  animation: heart-pulse 1s ease-in-out infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+@keyframes heart-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.7); }
+}
+
+/* completed: the fill fades in and the whole heart beats once */
+.heart-fill {
+  fill: var(--orange);
+  opacity: 0;
+  transition: opacity 0.9s ease;
+}
+
+.s8__heart.is-done .heart-fill {
+  opacity: 1;
+}
+
+.s8__heart.is-done {
+  animation: heart-beat 0.9s ease 0.9s;
+  transform-origin: center;
+}
+
+@keyframes heart-beat {
+  0%, 100% { transform: scale(1); }
+  30% { transform: scale(1.08); }
+  60% { transform: scale(0.98); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heart-dot.is-next .heart-point,
+  .s8__heart.is-done {
+    animation: none;
+  }
+}
+
 /* Scroll-down circle: sits on photo 4, straddles the boundary into section 2 */
 .s1__scroll {
   width: 106px;
