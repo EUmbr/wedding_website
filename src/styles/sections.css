@@ -565,6 +565,128 @@
   color: inherit;
 }
 
+/* ---------------------------------------------------------------------------
+   Section 6: dress code — reference: slide6.png
+   A vertical chain of touching elements on black.
+--------------------------------------------------------------------------- */
+.s6 {
+  height: 812px;
+}
+
+.s6 > * {
+  position: absolute;
+}
+
+.s6__circle {
+  border-radius: 50%;
+  background: var(--beige);
+}
+
+.s6__circle--top {
+  width: 48px;
+  height: 48px;
+  left: 164px;
+  top: 0;
+}
+
+.s6__circle--mid {
+  width: 32px;
+  height: 32px;
+  left: 172px;
+  top: 165px;
+  background: var(--orange);
+}
+
+.s6__circle--bottom {
+  width: 34px;
+  height: 34px;
+  left: 171px;
+  top: 777px;
+}
+
+.s6__heading {
+  font-weight: 700;
+  color: var(--orange);
+  line-height: 1;
+}
+
+.s6__heading-1,
+.s6__heading-2 {
+  position: absolute;
+  font-size: 32px;
+}
+
+.s6__heading-1 { left: 140px; top: 37px; }
+.s6__heading-2 { left: 152px; top: 58px; }
+
+.s6__heading-dot {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--orange);
+  left: 244px;
+  top: 62px;
+}
+
+.s6__text {
+  left: 48px;
+  top: 81px;
+  width: 279px;
+  font-size: 21px;
+  line-height: 22.5px;
+  color: var(--beige);
+  text-align: center;
+}
+
+.s6__black {
+  left: 0;
+  top: 179px;
+  width: 375px;
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--beige);
+  text-align: center;
+  line-height: 1;
+}
+
+.s6__card {
+  left: 78px;
+  top: 219px;
+  width: 219px;
+  height: 558px;
+  background: var(--beige);
+  border-radius: 16px;
+}
+
+.s6__card > * {
+  position: absolute;
+}
+
+.s6__swatch {
+  left: 9px;
+  top: 10px;
+  width: 137px;
+  height: 538px;
+  background: var(--black);
+  border-radius: 14px;
+}
+
+.s6__spec {
+  left: 156px;
+  color: var(--black);
+  font-size: 14px;
+  line-height: 15px;
+}
+
+.s6__spec span {
+  display: block;
+}
+
+.s6__spec--cmyk { top: 11px; }
+.s6__spec--rgb  { top: 56px; }
+.s6__spec--hex  { top: 96px; }
+
 /* Scroll-down circle: sits on photo 4, straddles the boundary into section 2 */
 .s1__scroll {
   width: 106px;
