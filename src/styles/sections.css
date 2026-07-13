@@ -7,6 +7,8 @@
 
 /* ---------------------------------------------------------------------------
    Section 1: title — reference: slide1.png (exactly one 812px screen)
+   Owner rule: elements stack directly on each other (no gaps, no overlaps);
+   only the headline lines intersect slightly.
 --------------------------------------------------------------------------- */
 .s1 {
   height: 812px;
@@ -18,20 +20,20 @@
   position: absolute;
 }
 
-/* the dot everything starts with — peeks from the top edge */
+/* the dot everything starts with — fully visible, touching the top edge */
 .s1__dot {
   width: 52px;
   height: 52px;
   border-radius: 50%;
   background: var(--beige);
   left: 160px;
-  top: -8px;
+  top: 0;
 }
 
 .s1__headline {
   position: static;
-  font-size: 63px;
-  font-weight: 400;
+  font-size: 60px;
+  font-weight: 700;
 }
 
 .s1__line {
@@ -41,17 +43,17 @@
 
 .s1__line--1 {
   left: 122px;
-  top: 38px;
+  top: 33px;
 }
 
 .s1__line--2 {
   left: 46px;
-  top: 62px;
+  top: 59px;
 }
 
 .s1__line--3 {
   left: 87px;
-  top: 92px;
+  top: 89px;
 }
 
 .s1__photo {
@@ -60,25 +62,25 @@
 
 .s1__photo--1 {
   left: 145px;
-  top: 146px;
+  top: 139px;
   width: 84px;
 }
 
 .s1__photo--2 {
   left: 112px;
-  top: 390px;
+  top: 380px;
   width: 152px;
 }
 
 .s1__photo--3 {
   left: 153px;
-  top: 505px;
+  top: 493px;
   width: 59px;
 }
 
 .s1__photo--4 {
   left: 122px;
-  top: 637px;
+  top: 629px;
   width: 124px;
 }
 
@@ -95,7 +97,7 @@
 
 .s1__name--sima {
   left: 154px;
-  top: 184px;
+  top: 183px;
 }
 
 /* the "и" is beige and slightly smaller in the reference */
@@ -103,12 +105,12 @@
   color: var(--beige);
   font-size: 56px;
   left: 168px;
-  top: 219px;
+  top: 218px;
 }
 
 .s1__name--zhenya {
   left: 113px;
-  top: 249px;
+  top: 245px;
 }
 
 .s1__circle {
@@ -117,11 +119,12 @@
   border-radius: 50%;
   background: var(--beige);
   left: 145px;
-  top: 303px;
+  top: 298px;
 }
 
 .s1__date {
   position: static;
+  font-weight: 700;
 }
 
 .s1__date-day,
@@ -133,16 +136,16 @@
 .s1__date-day {
   color: var(--beige);
   left: 97px;
-  top: 554px;
+  top: 548px;
 }
 
 .s1__date-year {
   color: var(--orange);
   left: 138px;
-  top: 591px;
+  top: 584px;
 }
 
-/* Scroll-down circle: straddles the boundary into section 2 */
+/* Scroll-down circle: sits on photo 4, straddles the boundary into section 2 */
 .s1__scroll {
   width: 106px;
   height: 106px;
@@ -150,9 +153,10 @@
   background: var(--beige);
   color: var(--black);
   left: 132px;
-  top: 733px;
+  top: 731px;
   z-index: 5;
-  font-size: 34px;
+  font-size: 44px;
+  font-weight: 700;
   line-height: 1;
   display: flex;
   align-items: center;

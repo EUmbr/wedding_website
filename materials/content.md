@@ -3,6 +3,23 @@
 All copy is lowercase by design (except where shown otherwise). Reproduce it exactly as
 written here — do not capitalize, do not rephrase, do not add punctuation.
 
+## Bold text map (owner, 2026-07-13)
+
+Everything uses Helvetica CY; the following is set in **bold**, the rest in regular:
+
+- Section 1: `все начинается с точки`, `08.08.2026`, the `v` in the scroll-down circle
+- Section 2: `содержание`
+- Section 3: `тайминг` + all time labels (15:00 etc.)
+- Section 4: `локация`, `Культ.Гараж`, the address, `открыть карту`
+- Section 5: `детали торжества`, `подарки`, `цветы`, `контакты`, `Марии`
+- Section 6: `dress-code`, `black`
+- Section 7: everything **except** the answer options
+- Section 8: everything
+
+Layout note for section 1 (owner): elements stack directly on top of each other — no gaps,
+no overlaps; only the three headline lines intersect slightly. The top circle touches the
+screen's top edge fully visible.
+
 ---
 
 ## Splash screen — `references/opening_slide.png`

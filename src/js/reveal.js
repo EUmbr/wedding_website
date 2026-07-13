@@ -14,12 +14,17 @@ export function initReveal() {
 
   const observer = new IntersectionObserver(
     (entries) => {
-      for (const entry of entries) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-revealed');
-          observer.unobserve(entry.target); // animate once
-        }
-      }
+      // elements entering together (e.g. a whole screen after the splash)
+      // appear one by one, top to bottom
+      const entering = entries
+        .filter((e) => e.isIntersecting)
+        .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+
+      entering.forEach((entry, i) => {
+        entry.target.style.transitionDelay = `${i * 0.1}s`;
+        entry.target.classList.add('is-revealed');
+        observer.unobserve(entry.target); // animate once
+      });
     },
     { threshold: 0.15, rootMargin: '0px 0px -5% 0px' },
   );
