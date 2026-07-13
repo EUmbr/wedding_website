@@ -22,11 +22,11 @@
 
 /* the dot everything starts with — fully visible, touching the top edge */
 .s1__dot {
-  width: 52px;
-  height: 52px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   background: var(--beige);
-  left: 160px;
+  left: 164px;
   top: 0;
 }
 
@@ -42,18 +42,18 @@
 }
 
 .s1__line--1 {
-  left: 122px;
-  top: 33px;
+  left: 121px;
+  top: 28px;
 }
 
 .s1__line--2 {
-  left: 46px;
-  top: 59px;
+  left: 41px;
+  top: 60px;
 }
 
 .s1__line--3 {
-  left: 87px;
-  top: 89px;
+  left: 91px;
+  top: 94px;
 }
 
 .s1__photo {
@@ -62,25 +62,25 @@
 
 .s1__photo--1 {
   left: 145px;
-  top: 139px;
+  top: 144px;
   width: 84px;
 }
 
 .s1__photo--2 {
   left: 112px;
-  top: 380px;
+  top: 389px;
   width: 152px;
 }
 
 .s1__photo--3 {
   left: 153px;
-  top: 493px;
+  top: 502px;
   width: 59px;
 }
 
 .s1__photo--4 {
   left: 122px;
-  top: 629px;
+  top: 638px;
   width: 124px;
 }
 
@@ -96,30 +96,30 @@
 }
 
 .s1__name--sima {
-  left: 154px;
-  top: 183px;
+  left: 152px;
+  top: 184px;
 }
 
 /* the "и" is beige and slightly smaller in the reference */
 .s1__name--i {
   color: var(--beige);
   font-size: 56px;
-  left: 168px;
-  top: 218px;
+  left: 166px;
+  top: 219px;
 }
 
 .s1__name--zhenya {
-  left: 113px;
-  top: 245px;
+  left: 111px;
+  top: 249px;
 }
 
 .s1__circle {
-  width: 82px;
-  height: 82px;
+  width: 86px;
+  height: 86px;
   border-radius: 50%;
   background: var(--beige);
-  left: 145px;
-  top: 298px;
+  left: 143px;
+  top: 303px;
 }
 
 .s1__date {
@@ -136,13 +136,13 @@
 .s1__date-day {
   color: var(--beige);
   left: 97px;
-  top: 548px;
+  top: 557px;
 }
 
 .s1__date-year {
   color: var(--orange);
   left: 138px;
-  top: 584px;
+  top: 593px;
 }
 
 /* Scroll-down circle: sits on photo 4, straddles the boundary into section 2 */
@@ -153,7 +153,7 @@
   background: var(--beige);
   color: var(--black);
   left: 132px;
-  top: 731px;
+  top: 740px;
   z-index: 5;
   font-size: 44px;
   font-weight: 700;

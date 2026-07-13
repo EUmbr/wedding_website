@@ -1,14 +1,16 @@
 // Dev helper: extract precise element geometry from a reference screenshot.
 // Classifies pixels by design-token color and prints vertical runs (bands)
 // with column extents, in CSS px (reference is 4x: 1500px wide = 375 CSS px).
-// Usage: node scripts/analyze-reference.mjs <image.png> [class] [scale]
+// Usage: node scripts/analyze-reference.mjs <image.png> [class] [scale] [rowsY0 rowsY1]
 //   class: beige|orange|muted|other (default: all)
 //   scale: px per CSS px in the image (default 4 for references; use 2 for
 //          deviceScaleFactor-2 Playwright screenshots)
+//   rowsY0 rowsY1: optional CSS y-range — prints per-CSS-row column extents
+//                  instead of merged bands (for decomposing overlapping text)
 
 import sharp from 'sharp';
 
-const [, , refPath, only, scaleArg] = process.argv;
+const [, , refPath, only, scaleArg, rowsY0, rowsY1] = process.argv;
 const SCALE = Number(scaleArg) || 4;
 
 const { data, info } = await sharp(refPath)
@@ -51,6 +53,30 @@ for (let y = 0; y < height; y++) {
   for (const c of classes) {
     rows[c].push({ n: counts[c], min: min[c], max: max[c] });
   }
+}
+
+// per-row dump mode: aggregate each CSS row, print column extents
+if (rowsY0 !== undefined) {
+  const c = only;
+  const y0 = Number(rowsY0);
+  const y1 = Number(rowsY1);
+  console.log(`=== ${c} per-row extents, CSS y ${y0}..${y1} ===`);
+  for (let cy = y0; cy <= y1; cy++) {
+    let n = 0;
+    let min = width;
+    let max = -1;
+    for (let y = cy * SCALE; y < (cy + 1) * SCALE && y < height; y++) {
+      const r = rows[c][y];
+      if (r.n === 0) continue;
+      n += r.n;
+      if (r.min < min) min = r.min;
+      if (r.max > max) max = r.max;
+    }
+    if (n > SCALE * 2) {
+      console.log(`y ${cy}  x ${Math.round(min / SCALE)}..${Math.round(max / SCALE)}  n ${n}`);
+    }
+  }
+  process.exit(0);
 }
 
 // merge consecutive rows with enough pixels into bands
