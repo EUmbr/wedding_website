@@ -31,8 +31,9 @@ if (mode !== 'splash') {
 if (mode.startsWith('y=')) {
   const y = Number(mode.slice(2));
   await page.evaluate((top) => window.scrollTo({ top, behavior: 'instant' }), y);
-  // let reveal animations in this screen finish
-  await page.waitForTimeout(2200);
+  // let reveal animations in this screen finish (staggered reveals of a whole
+  // tall section can take ~3.5s when everything enters the viewport at once)
+  await page.waitForTimeout(4200);
 }
 
 await page.screenshot({ path: out, fullPage: mode === 'full' });

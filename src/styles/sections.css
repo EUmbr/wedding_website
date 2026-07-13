@@ -687,6 +687,281 @@
 .s6__spec--rgb  { top: 56px; }
 .s6__spec--hex  { top: 96px; }
 
+/* ---------------------------------------------------------------------------
+   Section 7: guest brief / RSVP — reference: slide7.png
+   The reference is taller than one screen (1079 CSS px); the section extends
+   to 1150px so the trailing orange holds the owner-approved submit button.
+   Slide8 re-captures the last 178px — do not duplicate that content.
+--------------------------------------------------------------------------- */
+.s7 {
+  height: 1150px;
+  color: var(--black);
+}
+
+.s7 > *,
+.s7__form > * {
+  position: absolute;
+}
+
+.s7__heading {
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.s7__heading-1,
+.s7__heading-2 {
+  position: absolute;
+  font-size: 33px;
+}
+
+.s7__heading-1 { left: 45px; top: 66px; }
+
+/* "гостя" is vertically stretched in the reference: normal 33px letter widths
+   but a 28px x-height (~1.65x). Reproduced with a scaleY transform; the
+   [data-reveal] rules below keep the stretch through the reveal animation
+   (the generic .is-revealed rule would otherwise reset transform to none). */
+.s7__heading-2 {
+  left: 61px;
+  top: 74px;
+  transform-origin: 0 0;
+}
+
+.s7__heading-2[data-reveal] {
+  transform: translateY(14px) scaleY(1.65);
+}
+
+.s7__heading-2[data-reveal].is-revealed {
+  transform: scaleY(1.65);
+}
+
+.s7__heading-dot {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--black);
+  left: 147px;
+  top: 94px;
+}
+
+.s7__sub {
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.s7__sub-1,
+.s7__sub-2 {
+  position: absolute;
+  font-size: 22px;
+}
+
+.s7__sub-1 { left: 20px; top: 103px; }
+.s7__sub-2 { left: 69px; top: 125px; }
+
+.s7__form {
+  position: static;
+}
+
+.s7__label,
+.s7__group-label {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.s7__label--name   { left: 42px; top: 201px; }
+.s7__label--attend { left: 22px; top: 384px; }
+
+.s7__group-line {
+  position: absolute;
+}
+
+.s7__group-label--drinks .s7__group-line--1 { left: 36px; top: 521px; }
+.s7__group-label--drinks .s7__group-line--2 { left: 24px; top: 533px; }
+
+.s7__group-label--dish .s7__group-line--1 { left: 58px; top: 907px; }
+.s7__group-label--dish .s7__group-line--2 { left: 86px; top: 919px; }
+
+/* Name input: beige rounded box with a dotted "write here" guide line drawn
+   as a repeating radial-gradient near the bottom (dots 6px, 9.45px apart) */
+.s7__input {
+  left: 21px;
+  top: 218px;
+  width: 307px;
+  height: 104px;
+  border: 0;
+  border-radius: 15px;
+  background-color: var(--beige);
+  background-image: radial-gradient(circle 3px, var(--muted) 2.6px, transparent 3px);
+  background-size: 9.45px 6px;
+  background-position: 14px 87px;
+  background-repeat: repeat-x;
+  padding: 58px 16px 24px;
+  font: inherit;
+  font-size: 22px;
+  color: var(--black);
+}
+
+.s7__input.is-invalid {
+  outline: 2px solid var(--black);
+}
+
+/* Attendance: beige pill with two 42px circles; labels hang below off-grid */
+.s7__pill {
+  left: 28px;
+  top: 401px;
+  width: 123px;
+  height: 48px;
+  border-radius: 24px;
+  background: var(--beige);
+}
+
+.s7__yn {
+  position: absolute;
+  top: 3px;
+  width: 42px;
+  height: 42px;
+  cursor: pointer;
+}
+
+.s7__yn--no  { left: 4px; }
+.s7__yn--yes { left: 77px; }
+
+.s7__yn input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.s7__yn-circle {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--muted);
+}
+
+.s7__yn input:checked ~ .s7__yn-circle {
+  background: var(--black);
+}
+
+.s7__yn input:focus-visible ~ .s7__yn-circle {
+  outline: 2px solid var(--black);
+  outline-offset: 2px;
+}
+
+.s7__yn-text {
+  position: absolute;
+  font-size: 22px;
+  line-height: 1;
+  color: var(--beige);
+}
+
+.s7__yn--no  .s7__yn-text { left: 9px; top: 44px; }
+.s7__yn--yes .s7__yn-text { left: 4px; top: 40px; }
+
+/* Options: 42px beige ring with a 34px muted disc; checked turns black.
+   The text offset from the circle is constant across all options. */
+.s7__opts {
+  position: static;
+}
+
+.s7__opt {
+  position: absolute;
+  width: 42px;
+  height: 42px;
+  cursor: pointer;
+}
+
+.s7__opt--beer      { left: 24px;  top: 568px; }
+.s7__opt--champagne { left: 80px;  top: 622px; }
+.s7__opt--white     { left: 109px; top: 664px; }
+.s7__opt--red       { left: 45px;  top: 707px; }
+.s7__opt--soft      { left: 24px;  top: 766px; }
+.s7__opt--vodka     { left: 24px;  top: 819px; }
+
+.s7__opt--fish      { left: 45px;  top: 955px; }
+.s7__opt--chicken   { left: 45px;  top: 1011px; }
+
+.s7__opt input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.s7__opt-circle {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--beige);
+}
+
+.s7__opt-circle::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  background: var(--muted);
+}
+
+.s7__opt input:checked ~ .s7__opt-circle::after {
+  background: var(--black);
+}
+
+.s7__opt input:focus-visible ~ .s7__opt-circle {
+  outline: 2px solid var(--black);
+  outline-offset: 2px;
+}
+
+.s7__opt-text {
+  position: absolute;
+  left: 60px;
+  top: 9px;
+  font-size: 22px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* Submit button (owner-approved addition, styled after section 4's button) */
+.s7__submit {
+  left: 45px;
+  top: 1085px;
+  height: 40px;
+  padding-inline: 30px;
+  border-radius: 20px;
+  background: var(--beige);
+  color: var(--black);
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.s7__submit:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+/* Status sits to the right of the button: the solid orange runs out at
+   ~1141px (the scalloped edge into section 8 starts there), so there is no
+   room below the button. Once sent, the status replaces the hidden button. */
+.s7__status {
+  left: 215px;
+  top: 1090px;
+  width: 145px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 18px;
+}
+
+#rsvp.is-sent .s7__status {
+  left: 45px;
+  top: 1092px;
+  width: 310px;
+  font-size: 20px;
+  line-height: 22px;
+}
+
 /* Scroll-down circle: sits on photo 4, straddles the boundary into section 2 */
 .s1__scroll {
   width: 106px;

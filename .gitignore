@@ -2,6 +2,9 @@ node_modules/
 dist/
 .claude/
 
+# Dev screenshots from scripts/screenshot.mjs
+shots/
+
 # Raw design materials stay out of the repo (large binaries).
 # Site assets (src/assets/, public/) MUST be committed — Cloudflare Pages builds from git.
 materials/**/*.png

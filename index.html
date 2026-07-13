@@ -281,10 +281,104 @@
         </div>
       </section>
 
-      <!-- Section 7: guest brief / RSVP -->
+      <!-- Section 7: guest brief / RSVP — reference: slide7.png
+           Custom form posting to the Google Form formResponse endpoint. -->
       <section class="section section--brief" id="brief">
-        <div class="col">
-          <p class="placeholder">бриф гостя</p>
+        <div class="col s7">
+          <h2 class="s7__heading">
+            <span class="s7__heading-1" data-reveal>бриф</span>
+            <span class="s7__heading-2" data-reveal>гостя</span>
+            <span class="s7__heading-dot" data-reveal></span>
+          </h2>
+          <p class="s7__sub">
+            <span class="s7__sub-1" data-reveal>Будем ждать ваш ответ</span>
+            <span class="s7__sub-2" data-reveal>до 18.07.2026</span>
+          </p>
+
+          <form class="s7__form" id="rsvp" novalidate>
+            <label class="s7__label s7__label--name" for="rsvp-name" data-reveal>фио</label>
+            <input
+              class="s7__input"
+              id="rsvp-name"
+              name="entry.1199485873"
+              type="text"
+              autocomplete="name"
+              data-reveal
+            />
+
+            <p class="s7__label s7__label--attend" id="attend-label" data-reveal>присутствие</p>
+            <div class="s7__pill" role="radiogroup" aria-labelledby="attend-label" data-reveal>
+              <label class="s7__yn s7__yn--no">
+                <input type="radio" name="entry.100062412" value="нет" />
+                <span class="s7__yn-circle"></span>
+                <span class="s7__yn-text">нет</span>
+              </label>
+              <label class="s7__yn s7__yn--yes">
+                <input type="radio" name="entry.100062412" value="да" />
+                <span class="s7__yn-circle"></span>
+                <span class="s7__yn-text">да</span>
+              </label>
+            </div>
+
+            <p class="s7__group-label s7__group-label--drinks" id="drinks-label">
+              <span class="s7__group-line s7__group-line--1" data-reveal>предпочтения</span>
+              <span class="s7__group-line s7__group-line--2" data-reveal>по напиткам</span>
+            </p>
+            <div class="s7__opts" role="group" aria-labelledby="drinks-label">
+              <label class="s7__opt s7__opt--beer" data-reveal>
+                <input type="checkbox" name="entry.1865058381" value="пиво" />
+                <span class="s7__opt-circle"></span>
+                <span class="s7__opt-text">пиво</span>
+              </label>
+              <label class="s7__opt s7__opt--champagne" data-reveal>
+                <input type="checkbox" name="entry.1865058381" value="шампанское" />
+                <span class="s7__opt-circle"></span>
+                <span class="s7__opt-text">шампанское</span>
+              </label>
+              <label class="s7__opt s7__opt--white" data-reveal>
+                <input type="checkbox" name="entry.1865058381" value="белое вино" />
+                <span class="s7__opt-circle"></span>
+                <span class="s7__opt-text">белое вино</span>
+              </label>
+              <label class="s7__opt s7__opt--red" data-reveal>
+                <input type="checkbox" name="entry.1865058381" value="красное вино" />
+                <span class="s7__opt-circle"></span>
+                <span class="s7__opt-text">красное вино</span>
+              </label>
+              <label class="s7__opt s7__opt--soft" data-reveal>
+                <input type="checkbox" name="entry.1865058381" value="безалкогольные напитки" />
+                <span class="s7__opt-circle"></span>
+                <span class="s7__opt-text">безалкогольные напитки</span>
+              </label>
+              <label class="s7__opt s7__opt--vodka" data-reveal>
+                <input type="checkbox" name="entry.1865058381" value="водка" />
+                <span class="s7__opt-circle"></span>
+                <span class="s7__opt-text">водка</span>
+              </label>
+            </div>
+
+            <p class="s7__group-label s7__group-label--dish" id="dish-label">
+              <span class="s7__group-line s7__group-line--1" data-reveal>предпочтения</span>
+              <span class="s7__group-line s7__group-line--2" data-reveal>по горячему блюду</span>
+            </p>
+            <div class="s7__opts" role="radiogroup" aria-labelledby="dish-label">
+              <label class="s7__opt s7__opt--fish" data-reveal>
+                <input type="radio" name="entry.1134375954" value="рыба" />
+                <span class="s7__opt-circle"></span>
+                <span class="s7__opt-text">рыба</span>
+              </label>
+              <label class="s7__opt s7__opt--chicken" data-reveal>
+                <input type="radio" name="entry.1134375954" value="курица" />
+                <span class="s7__opt-circle"></span>
+                <span class="s7__opt-text">курица</span>
+              </label>
+            </div>
+
+            <!-- The submit button is not in the reference; owner-approved,
+                 styled after the "открыть карту" button in section 4. -->
+            <button class="s7__submit" type="submit" data-reveal>отправить</button>
+            <p class="s7__status" id="rsvp-status" role="status" aria-live="polite"></p>
+          </form>
         </div>
       </section>
 
