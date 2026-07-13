@@ -61,11 +61,15 @@ const inButton = (p) => {
   return x >= BUTTON[0] && x < BUTTON[2] && y >= BUTTON[1] && y < BUTTON[3];
 };
 
+const keepPixel = (p) => {
+  const id = labels[p];
+  return id !== -1 && areas[id] >= MIN_AREA && !inButton(p);
+};
+
 const out = Buffer.alloc(N * 4);
 let kept = 0;
 for (let p = 0; p < N; p++) {
-  const id = labels[p];
-  if (id !== -1 && areas[id] >= MIN_AREA && !inButton(p)) {
+  if (keepPixel(p)) {
     const o = p * 4;
     out[o] = 0xf5;
     out[o + 1] = 0x5b;
@@ -75,8 +79,65 @@ for (let p = 0; p < N; p++) {
   }
 }
 
-const info2 = await sharp(out, { raw: { width, height, channels: 4 } })
-  .resize({ width: 750 }) // 2x CSS resolution is plenty for flat shapes
+// --- complete the circles the reference cuts at the screen edges ----------
+// The asset is exported wider than the column (PAD on each side) so desktop
+// margins show whole circles instead of vertical cuts. For every vertical
+// run of orange along a side edge, fit a circle from the chord (run length c)
+// and the inward depth at the run's middle row (w): r = c²/8w + w/2. Runs
+// merged too deep into the pattern fall back to a semicircle on the edge.
+const PAD = 240; // ref px = 60 CSS px each side
+const MAX_DEPTH = 350;
+
+const edgeCirclesFor = (edgeX, dir) => {
+  const circles = [];
+  let runStart = -1;
+  for (let y = 0; y <= height; y++) {
+    const on = y < height && keepPixel(y * width + edgeX);
+    if (on && runStart === -1) runStart = y;
+    if (!on && runStart !== -1) {
+      const c = y - runStart;
+      if (c > 40) {
+        const midY = Math.round(runStart + c / 2);
+        let w = 0;
+        while (w < MAX_DEPTH && keepPixel(midY * width + edgeX + dir * w)) w++;
+        const r = w >= MAX_DEPTH ? c / 2 : (c * c) / (8 * w) + w / 2;
+        const d = Math.max(0, r - Math.min(w, MAX_DEPTH));
+        circles.push({ cx: edgeX + dir * -d, cy: runStart + c / 2, r });
+      }
+      runStart = -1;
+    }
+  }
+  return circles;
+};
+
+const edgeCircles = [...edgeCirclesFor(0, 1), ...edgeCirclesFor(width - 1, -1)];
+console.log(
+  'edge circles:',
+  edgeCircles.map((c) => `(${c.cx | 0},${c.cy | 0}) r${c.r | 0}`).join(' '),
+);
+
+const OUT_W = width + PAD * 2;
+const scale = 990 / OUT_W; // 2x CSS resolution for the 495 CSS px asset
+const circleSvg = edgeCircles
+  .map(
+    ({ cx, cy, r }) =>
+      `<circle cx="${((cx + PAD) * scale).toFixed(1)}" cy="${(cy * scale).toFixed(1)}" r="${(r * scale).toFixed(1)}" fill="#F55B29"/>`,
+  )
+  .join('');
+const outH = Math.round(height * scale);
+
+const base = await sharp(out, { raw: { width, height, channels: 4 } })
+  .resize({ width: Math.round(width * scale) })
+  .png()
+  .toBuffer();
+
+const info2 = await sharp({
+  create: { width: 990, height: outH, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } },
+})
+  .composite([
+    { input: Buffer.from(`<svg width="990" height="${outH}">${circleSvg}</svg>`), left: 0, top: 0 },
+    { input: base, left: Math.round(PAD * scale), top: 0 },
+  ])
   .webp({ quality: 90, alphaQuality: 90 })
   .toFile(OUT);
 console.log(
