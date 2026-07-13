@@ -343,6 +343,92 @@
 .s3__row--6  { left: 16px;  top: 339px; }
 .s3__row--6 span { left: 60px; top: 0; }
 
+/* ---------------------------------------------------------------------------
+   Section 4: location — reference: slide4.png
+--------------------------------------------------------------------------- */
+.s4 {
+  height: 812px;
+  overflow: hidden;
+}
+
+.s4__blobs {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.s4__heading {
+  position: absolute;
+  left: 115px;
+  top: 279px;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--beige);
+  white-space: nowrap;
+}
+
+.s4__heading-dot {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--beige);
+  right: -10px;
+  top: 5px;
+}
+
+.s4__text {
+  position: absolute;
+  font-size: 22px;
+  line-height: 22px;
+  color: var(--orange);
+  white-space: nowrap;
+  z-index: 2; /* the address overlaps the map corner in the reference */
+}
+
+.s4__text b {
+  font-weight: 700;
+}
+
+.s4__text--venue {
+  left: 159px;
+  top: 311px;
+}
+
+.s4__text--address {
+  left: 59px;
+  top: 393px;
+}
+
+.s4__map {
+  position: absolute;
+  left: 91px;
+  top: 434px;
+  width: 260px;
+  height: 299px;
+  border: 0;
+  border-radius: 10px;
+}
+
+.s4__btn {
+  position: absolute;
+  left: 76px;
+  top: 745px;
+  width: 153px;
+  height: 33px;
+  border-radius: 17px;
+  background: var(--orange);
+  color: var(--beige);
+  font-size: 22px;
+  font-weight: 700;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* Scroll-down circle: sits on photo 4, straddles the boundary into section 2 */
 .s1__scroll {
   width: 106px;

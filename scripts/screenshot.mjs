@@ -17,7 +17,10 @@ const page = await browser.newPage({
   deviceScaleFactor: 2,
 });
 
-await page.goto(url, { waitUntil: 'networkidle' });
+// 'load' + settle delay instead of networkidle: the Yandex map iframe keeps
+// making requests forever, so networkidle never fires
+await page.goto(url, { waitUntil: 'load' });
+await page.waitForTimeout(2500);
 
 if (mode !== 'splash') {
   await page.click('#splash', { timeout: 3000 }).catch(() => {});
