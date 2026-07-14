@@ -1,8 +1,7 @@
 // Connect-the-dots heart (reference: materials/files/slide8/heart_game.png).
-// Dots are connected strictly in order 1→2→…→16→1, either by tapping each
-// dot or by dragging: a rubber-band line follows the finger/cursor from the
-// last connected dot and snaps when it reaches the next one. Closing the
-// loop fills the heart and plays the win video effect.
+// Dots are connected strictly in order 1→2→…→16→1 by tapping each dot.
+// Tapping any other dot does nothing; the next expected dot pulses as a hint.
+// Closing the loop fills the heart and plays the win video effect.
 
 import { setMusicDucked } from './audio.js';
 
@@ -18,8 +17,6 @@ const DOTS = [
   [326, 111, 293, 115], [304.5, 50.5, 310, 28], [252.5, 50.5, 253, 40],
   [221, 85, 244, 116],
 ];
-
-const SNAP_RADIUS = 22; // how close the drag must come to catch the next dot
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
 const el = (tag, attrs) => {
@@ -75,8 +72,7 @@ export function initHeart() {
   svg.append(fill);
 
   const lines = el('g', { class: 'heart-lines' });
-  const rubber = el('line', { class: 'heart-rubber', visibility: 'hidden' });
-  svg.append(lines, rubber);
+  svg.append(lines);
 
   let next = 0; // index into DOTS of the next expected dot
   let done = false;
@@ -94,7 +90,6 @@ export function initHeart() {
       dotEls[0].classList.add('is-next'); // loop back to dot 1
     } else if (next === 17) {
       done = true;
-      rubber.setAttribute('visibility', 'hidden');
       svg.classList.add('is-done');
       dotEls[0].classList.remove('is-next');
       playWinEffect();
@@ -126,58 +121,4 @@ export function initHeart() {
   });
 
   dotEls[0].classList.add('is-next'); // hint: start at 1
-
-  // --- drawing without lifting the finger/cursor ---------------------------
-  // While the pointer is down, a rubber-band line follows it from the last
-  // connected dot; passing within SNAP_RADIUS of the next dot connects it.
-  // (clientX/Y are mapped through the rendered box, so this stays correct
-  // under the page zoom scaling.)
-  const toSvgPoint = (event) => {
-    const box = svg.getBoundingClientRect();
-    return [
-      ((event.clientX - box.left) / box.width) * 375,
-      ((event.clientY - box.top) / box.height) * 410,
-    ];
-  };
-
-  let drawing = false;
-
-  const updateRubber = (event) => {
-    if (done || next === 0) return;
-    const [px, py] = DOTS[next - 1];
-    let [x, y] = toSvgPoint(event);
-
-    // connect every dot the drag passes through (loop: a single move event
-    // can land close enough to catch a dot)
-    while (!done) {
-      const [tx, ty] = DOTS[next % 16];
-      if (Math.hypot(x - tx, y - ty) > SNAP_RADIUS) break;
-      advance();
-    }
-    if (done) return;
-    const [lx, ly] = DOTS[next - 1];
-    rubber.setAttribute('x1', lx);
-    rubber.setAttribute('y1', ly);
-    rubber.setAttribute('x2', x);
-    rubber.setAttribute('y2', y);
-    rubber.setAttribute('visibility', 'visible');
-  };
-
-  svg.addEventListener('pointerdown', (event) => {
-    if (done || next === 0) return;
-    drawing = true;
-    svg.setPointerCapture(event.pointerId);
-    updateRubber(event);
-  });
-
-  svg.addEventListener('pointermove', (event) => {
-    if (drawing) updateRubber(event);
-  });
-
-  const stopDrawing = () => {
-    drawing = false;
-    rubber.setAttribute('visibility', 'hidden');
-  };
-  svg.addEventListener('pointerup', stopDrawing);
-  svg.addEventListener('pointercancel', stopDrawing);
 }

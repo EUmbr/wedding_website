@@ -1086,8 +1086,8 @@
   fill: var(--beige);
 }
 
-/* touch-action only on the dots: a drag starting on a dot draws the line
-   (no page pan), while touching empty space still scrolls the page */
+/* touch-action only on the dots: a tap on a dot always registers (never
+   turns into a page pan), while touching empty space still scrolls the page */
 .heart-hit {
   fill: transparent;
   cursor: pointer;
@@ -1101,8 +1101,7 @@
   user-select: none;
 }
 
-.heart-line,
-.heart-rubber {
+.heart-line {
   stroke: var(--orange);
   stroke-width: 3;
   stroke-linecap: round;
