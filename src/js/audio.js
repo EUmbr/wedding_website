@@ -5,7 +5,9 @@
 import musicOnIcon from '../assets/images/music_on_icon.webp';
 import musicOffIcon from '../assets/images/music_off_icon.webp';
 
-const AUDIO_SRC = '/audio/track.mp3';
+// BASE_URL-prefixed so it works when the site is deployed under a subpath
+// (GitHub Pages serves it from /<repo>/ — a bare "/audio/…" would 404 there)
+const AUDIO_SRC = import.meta.env.BASE_URL + 'audio/track.mp3';
 
 let audio = null;
 

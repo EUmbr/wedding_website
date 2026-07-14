@@ -41,14 +41,15 @@ let winSound = null;
 
 function prepareWinEffect() {
   if (!winSound) {
-    // mp3 plays everywhere (a bare .opus does not play on iOS Safari)
-    winSound = new Audio('/effects/heart_win.mp3');
+    // mp3 plays everywhere (a bare .opus does not play on iOS Safari);
+    // BASE_URL-prefixed for subpath deploys (GitHub Pages)
+    winSound = new Audio(import.meta.env.BASE_URL + 'effects/heart_win.mp3');
     winSound.preload = 'auto';
   }
   if (winVideo || noAlphaWebm) return;
   const video = document.createElement('video');
   if (!video.canPlayType('video/webm')) return;
-  video.src = '/effects/heart_win.webm';
+  video.src = import.meta.env.BASE_URL + 'effects/heart_win.webm';
   video.preload = 'auto';
   video.muted = true; // the sound track ships separately as .mp3
   video.playsInline = true;
