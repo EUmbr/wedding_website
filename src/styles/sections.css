@@ -1118,16 +1118,16 @@
   z-index: 200;
 }
 
-/* hint: the next expected dot gently pulses */
+/* hint: the next expected dot gently pulses. Animate the SVG geometry
+   property `r` directly — a transform with `transform-box: fill-box` makes
+   iOS Safari TRANSLATE the dot instead of scaling it in place. */
 .heart-dot.is-next .heart-point {
   animation: heart-pulse 1s ease-in-out infinite;
-  transform-origin: center;
-  transform-box: fill-box;
 }
 
 @keyframes heart-pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.7); }
+  0%, 100% { r: 6px; }
+  50% { r: 10px; }
 }
 
 /* completed: plain orange fill, no extra animation (owner's call) */

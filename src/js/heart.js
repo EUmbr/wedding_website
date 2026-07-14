@@ -25,28 +25,48 @@ const el = (tag, attrs) => {
   return node;
 };
 
-// --- win effect: transparent webm overlay + separate opus sound ------------
+// --- win effect: transparent webm overlay + separate mp3 sound -------------
+
+// WebKit (all iOS browsers + desktop Safari) plays webm video but WITHOUT the
+// alpha channel — the effect would show a solid black rectangle. Its alpha
+// format is HEVC-only, so skip the video there; the sound and the heart fill
+// still play. (A HEVC+alpha .mov fallback can only be produced on a Mac.)
+const noAlphaWebm =
+  /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+  (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1) || // iPadOS
+  (/AppleWebKit/.test(navigator.userAgent) && !/Chrome|CriOS|Edg|Android/.test(navigator.userAgent));
 
 let winVideo = null;
+let winSound = null;
 
 function prepareWinEffect() {
-  if (winVideo) return;
+  if (!winSound) {
+    // mp3 plays everywhere (a bare .opus does not play on iOS Safari)
+    winSound = new Audio('/effects/heart_win.mp3');
+    winSound.preload = 'auto';
+  }
+  if (winVideo || noAlphaWebm) return;
   const video = document.createElement('video');
-  // iOS Safari cannot play webm with alpha — skip the effect there entirely
   if (!video.canPlayType('video/webm')) return;
   video.src = '/effects/heart_win.webm';
   video.preload = 'auto';
-  video.muted = true; // the sound track ships separately as .opus
+  video.muted = true; // the sound track ships separately as .mp3
   video.playsInline = true;
   video.className = 'heart-win-video';
   winVideo = video;
 }
 
 function playWinEffect() {
+  // the sound plays even where the transparent video can't
+  if (winSound) {
+    setMusicDucked(true);
+    winSound.addEventListener('ended', () => {
+      if (!winVideo) setMusicDucked(false);
+    });
+    winSound.play().catch(() => {});
+  }
   if (!winVideo) return;
-  const sound = new Audio('/effects/heart_win.opus');
   document.body.append(winVideo);
-  setMusicDucked(true);
 
   const cleanup = () => {
     winVideo.remove();
@@ -55,7 +75,6 @@ function playWinEffect() {
   winVideo.addEventListener('ended', cleanup);
   winVideo.addEventListener('error', cleanup);
   winVideo.play().catch(cleanup);
-  sound.play().catch(() => {});
 }
 
 // ---------------------------------------------------------------------------
