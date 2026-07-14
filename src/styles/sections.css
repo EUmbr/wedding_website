@@ -730,7 +730,7 @@
   font-size: 33px;
 }
 
-.s7__heading-1 { left: 45px; top: 66px; }
+.s7__heading-1 { left: 34px; top: 62px; }
 
 /* "гостя" is vertically stretched in the reference: normal 33px letter widths
    but a 28px x-height (~1.65x). Reproduced with a scaleY transform; the
@@ -738,17 +738,10 @@
    (the generic .is-revealed rule would otherwise reset transform to none). */
 .s7__heading-2 {
   left: 61px;
-  top: 74px;
+  top: 80px;
   transform-origin: 0 0;
 }
 
-.s7__heading-2[data-reveal] {
-  transform: translateY(14px) scaleY(1.65);
-}
-
-.s7__heading-2[data-reveal].is-revealed {
-  transform: scaleY(1.65);
-}
 
 .s7__heading-dot {
   position: absolute;
@@ -756,8 +749,8 @@
   height: 5px;
   border-radius: 50%;
   background: var(--black);
-  left: 147px;
-  top: 94px;
+  left: 142px;
+  top: 90px;
 }
 
 .s7__sub {
