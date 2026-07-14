@@ -35,14 +35,28 @@
       type="font/ttf"
       crossorigin
     />
-    <!-- The 375px design column scales to the viewport (capped at 1.25x on
-         desktop). Set before first paint to avoid a layout shift; main.js
-         keeps it updated on resize. -->
+    <!-- The design is a fixed 375px column. Phones render it via NATIVE
+         viewport scaling (meta width=375): the layout is always exactly
+         375px, so line wrapping is identical on every phone, and iOS
+         pinch-zoom works without reflowing (CSS zoom reacted to pinch and
+         made text/images shift around). Desktop/tablet keep
+         width=device-width and scale the column with CSS zoom, capped at a
+         moderate 1.25x. Runs before first paint to avoid a layout shift. -->
     <script>
-      document.documentElement.style.setProperty(
-        '--page-zoom',
-        String(Math.min(window.innerWidth / 375, 1.25)),
-      );
+      (function () {
+        var phone = Math.min(screen.width, screen.height) < 768;
+        if (phone) {
+          document
+            .querySelector('meta[name="viewport"]')
+            .setAttribute('content', 'width=375');
+          document.documentElement.dataset.scale = 'native';
+        } else {
+          document.documentElement.style.setProperty(
+            '--page-zoom',
+            String(Math.min(window.innerWidth / 375, 1.25)),
+          );
+        }
+      })();
     </script>
   </head>
   <body>

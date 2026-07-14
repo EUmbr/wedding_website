@@ -12,8 +12,14 @@ const [, , out = 'shot.png', mode = 'full', width = '375', height = '812'] = pro
 const url = process.env.SITE_URL || 'http://localhost:5173';
 
 const browser = await chromium.launch({ channel: 'msedge' });
+// phone widths emulate a real phone (isMobile → the meta viewport width=375
+// is honored and the 375px canvas is natively scaled, like on device)
+const phone = Number(width) < 768;
 const page = await browser.newPage({
   viewport: { width: Number(width), height: Number(height) },
+  screen: { width: Number(width), height: Number(height) },
+  isMobile: phone,
+  hasTouch: phone,
   deviceScaleFactor: 2,
 });
 

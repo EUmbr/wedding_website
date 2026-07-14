@@ -6,8 +6,14 @@ import { chromium } from 'playwright-core';
 const [, , w = '412', h = '915', prefix = 'w'] = process.argv;
 const url = process.env.SITE_URL || 'http://localhost:5173';
 const browser = await chromium.launch({ channel: 'msedge' });
+// phone widths emulate a real phone (isMobile → the meta viewport width=375
+// is honored and the 375px canvas is natively scaled, like on device)
+const phone = Number(w) < 768;
 const page = await browser.newPage({
   viewport: { width: Number(w), height: Number(h) },
+  screen: { width: Number(w), height: Number(h) },
+  isMobile: phone,
+  hasTouch: phone,
   deviceScaleFactor: 2,
 });
 
