@@ -27,15 +27,12 @@ const el = (tag, attrs) => {
 
 // --- win effect: transparent webm overlay + separate mp3 sound -------------
 
-// WebKit (all iOS browsers + desktop Safari) plays webm video but WITHOUT the
-// alpha channel — the effect would show a solid black rectangle. Its alpha
-// format is HEVC-only, so skip the video there; the sound and the heart fill
-// still play. (A HEVC+alpha .mov fallback can only be produced on a Mac.)
-const noAlphaWebm =
-  /iPad|iPhone|iPod/.test(navigator.userAgent) ||
-  (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1) || // iPadOS
-  (/AppleWebKit/.test(navigator.userAgent) && !/Chrome|CriOS|Edg|Android/.test(navigator.userAgent));
-
+// WebKit (iOS browsers + desktop Safari) plays this webm but ignores its
+// alpha channel, so on those the effect shows on a solid black backdrop
+// instead of transparent (a truly transparent iOS fallback needs a
+// HEVC+alpha .mov, which can only be produced on a Mac). The owner still
+// wants the video to play there, so we don't skip it — we just let the
+// backdrop be black on WebKit.
 let winVideo = null;
 let winSound = null;
 
@@ -46,9 +43,9 @@ function prepareWinEffect() {
     winSound = new Audio(import.meta.env.BASE_URL + 'effects/heart_win.mp3');
     winSound.preload = 'auto';
   }
-  if (winVideo || noAlphaWebm) return;
+  if (winVideo) return;
   const video = document.createElement('video');
-  if (!video.canPlayType('video/webm')) return;
+  if (!video.canPlayType('video/webm')) return; // very old browsers: sound only
   video.src = import.meta.env.BASE_URL + 'effects/heart_win.webm';
   video.preload = 'auto';
   video.muted = true; // the sound track ships separately as .mp3
