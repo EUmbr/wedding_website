@@ -17,6 +17,9 @@
   text-align: center;
   cursor: pointer;
   transition: opacity 0.8s ease;
+  /* no touch gesture on the splash may pan/bounce the page behind it */
+  touch-action: none;
+  overscroll-behavior: contain;
 }
 
 .splash.is-hidden {
@@ -63,9 +66,16 @@
   line-height: 1.15;
 }
 
-/* Locks page scroll while the splash is up */
+/* Locks page scroll while the splash is up. overflow:hidden alone is not
+   enough on iOS Safari — touch gestures still scroll the page under the
+   splash (and can drag the splash itself along). position:fixed on body
+   freezes the document completely. The splash only exists at initial load,
+   when the scroll position is 0, so nothing needs restoring on unlock. */
 .no-scroll {
   overflow: hidden;
+  position: fixed;
+  inset: 0;
+  width: 100%;
 }
 
 /* ---------------------------------------------------------------------------
