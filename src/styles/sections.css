@@ -354,15 +354,16 @@
 }
 
 /* Painted over the map iframe (the design's circles clip the map corners);
-   pointer-events off so the map stays interactive. The asset is 495px wide
-   (60px wider than the column on each side): circles that the reference cuts
-   at the screen edge are completed, so desktop margins show whole circles. */
+   pointer-events off so the map stays interactive. The asset is 615px wide
+   (120px = two grid radii wider than the column on each side): circles that
+   the reference cuts at the screen edge are completed by fitting their
+   visible arcs, so desktop margins show whole circles. */
 .s4__blobs {
   position: absolute;
   left: 50%;
   top: 0;
   transform: translateX(-50%);
-  width: 495px;
+  width: 615px;
   max-width: none;
   height: 812px;
   z-index: 2;
