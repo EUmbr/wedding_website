@@ -354,15 +354,18 @@
 }
 
 /* Painted over the map iframe (the design's circles clip the map corners);
-   pointer-events off so the map stays interactive. The asset is 495px wide
-   (60px wider than the column on each side): circles that the reference cuts
-   at the screen edge are completed, so desktop margins show whole circles. */
+   pointer-events off so the map stays interactive. Hand-authored asset
+   (materials/files/slide4/location_circles.png) of whole circles, ~85px
+   wider than the 375px column on each side so desktop margins show whole
+   circles and the top row reads as rounded tops (not a flat cut). Centered
+   on the column; the negative top lets the top circles sit at the section-3
+   seam exactly as in the reference. */
 .s4__blobs {
   position: absolute;
   left: 50%;
-  top: 0;
+  top: -38px;
   transform: translateX(-50%);
-  width: 495px;
+  width: 545px;
   max-width: none;
   height: 812px;
   z-index: 2;
